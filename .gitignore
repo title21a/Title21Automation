@@ -1,0 +1,11 @@
+/bin/
+/target/
+/Reports/
+/test-output/
+/build_artifacts/
+/.settings
+Log.log
+
+
+
+Log.log
