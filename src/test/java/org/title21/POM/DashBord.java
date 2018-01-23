@@ -32,18 +32,18 @@ public class DashBord
 	 * @param WebDriver obj
 	 */
 	
-	public void verifyDashboardPrescence(WebDriver driver){
+	public boolean verifyDashboardPrescence(WebDriver driver){
 		
 		String dashboredtext = dashBordText(driver).getText();
 		System.out.println(dashboredtext);
 		
 		if(dashboredtext.equals("Dashboard"))
 		{
-		System.out.println("passed");
+			return true;
 		}
 		else
 		{
-			System.out.println("failed");
+			return false;
 		}
 		
 	}
@@ -53,17 +53,17 @@ public class DashBord
 	 * 
 	 */
 	
-	public void verifyHeaderStyle(WebDriver driver){
+	public boolean verifyHeaderStyle(WebDriver driver){
 		
 		String headstyletext = headerStyle(driver).getText();
 		System.out.println(headstyletext);
 		if(headstyletext.equals("Administrator's Dashboard"))
 		{
-		System.out.println("passed");
+			return true;
 		}
 		else
 		{
-			System.out.println("failed");
+			return false;
 		}
 				
 	}

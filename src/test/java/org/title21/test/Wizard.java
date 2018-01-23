@@ -10,7 +10,8 @@ import org.title21.POM.WizardPage_POM;
 import org.title21.utility.BaseClass;
 
 import com.relevantcodes.extentreports.LogStatus;
-
+// not to execute now.
+/*
 public class Wizard extends BaseClass
 {
 	public LoginPage_POM login = new LoginPage_POM();
@@ -39,3 +40,4 @@ public class Wizard extends BaseClass
 		
 	}
 }
+*/

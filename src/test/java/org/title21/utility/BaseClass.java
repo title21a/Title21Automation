@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Formatter;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -91,9 +92,12 @@ public class BaseClass {
 
 	public static String captureScreenShot(WebDriver driver, String screenshotName) {
 		try {
+			Calendar calander = Calendar.getInstance();
+			SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
 			File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+			
 			String workingDir = System.getProperty("user.dir")+"\\extentReports";
-			String dest = workingDir + "\\"+screenshotName + ".png";
+			String dest = workingDir + "\\"+screenshotName + "-"+formater.format(calander.getTime())+".png";
 			File destination = new File(dest);
 			FileUtils.copyFile(src, destination);
 			System.out.println("ScreenShot Taken");

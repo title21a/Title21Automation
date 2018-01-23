@@ -6,6 +6,8 @@ import org.testng.annotations.Test;
 import org.title21.POM.LoginPage_POM;
 import org.title21.POM.Reports;
 import org.title21.utility.BaseClass;
+/*
+ * not to execute now.
 
 public class ReportPage_Test extends BaseClass
 {
@@ -36,3 +38,4 @@ public void verifyReports()
 	report.reportLinks(driver).click();
 }
 }
+*/

@@ -19,22 +19,39 @@ public class LoginPage_Test extends BaseClass {
 		browser("Chrome", "https://quantumdev.title21.com");
 	}
 	@Test(testName = "login_admin", groups = "Logins", priority = 0)
-	public void LoginWithInvalidPassword() 
+	public void LoginWithInvalidCredentials() throws Exception 
 	{
 		test = extent.startTest(data[0][2]);
 		test.log(LogStatus.PASS, "Opened URL");
+		login.login_BTN(driver).click();
+		Thread.sleep(2000);
+		if (login.verifyUserIDValidationMessage(driver)){
+			test.addScreenCapture(captureScreenShot(driver, "withBlankUsername"));
+		}
+		
 		login.login_username(driver).sendKeys(data[0][0]);
 		test.log(LogStatus.PASS, "Username Entered");
 		login.login_BTN(driver).click();
 		test.log(LogStatus.PASS, "Clicked on Login button after entering Username");
-
-		// login.login_BTN(driver).click();
-
-		login.login_password(driver).sendKeys(data[0][1]);
-		test.log(LogStatus.PASS, "Pass Entered");
+		test.addScreenCapture(captureScreenShot(driver, "AfterEnteringProperUsername"));
 		login.login_BTN(driver).click();
-		test.log(LogStatus.PASS, "Clicked Buttons");
-		login.passwordErrorMessage(driver);
+		Thread.sleep(2000);
+		if (login.verifyPasswordValidationMessage(driver)){
+			test.addScreenCapture(captureScreenShot(driver, "WithblankPassword"));
+		}
+		
+		login.login_password(driver).sendKeys(data[0][1]);
+		test.log(LogStatus.PASS, "Incorrect Password Entered");
+		login.login_BTN(driver).click();
+		test.log(LogStatus.PASS, "Clicked on Login Button.");
+		
+		if (login.verifyPasswordErrorMessage(driver)){			
+			test.log(LogStatus.PASS, "Verify error message without entering password."+
+			test.addScreenCapture(captureScreenShot(driver, "PasswordErrorMessageSuccess")));
+		}else{
+			throw new Exception("Password message not matched.");
+			
+		};
 		test.log(LogStatus.PASS, "Verify error message without entering password.");
 		extent.endTest(test);
 	}	
@@ -44,29 +61,32 @@ public class LoginPage_Test extends BaseClass {
 	{
 		test = extent.startTest(data[1][2]);
 		login.login_password(driver).sendKeys(data[1][1]);
-		test.log(LogStatus.PASS, "Correct password Entered");
+		test.log(LogStatus.PASS, "Correct password Entered.");
 		login.login_BTN(driver).click();
-		test.log(LogStatus.PASS, "Clicked on Button");
+		test.log(LogStatus.PASS, "Clicked on Login button."+
+		test.addScreenCapture(captureScreenShot(driver, "View after Loggedin.")));
 		extent.endTest(test);
-
 	}
 	@Test(testName = "login_admin", groups = "Logins", priority = 2)
-	public void sucefullyLogin() 
+	public void VerifyUserLoggedin() 
 	{
-		test = extent.startTest(data[1][2]);
-		login.login_BTN(driver).click();
-		test.log(LogStatus.PASS, "Verifing DashBord");
-		dashboardObj.verifyDashboardPrescence(driver);
-		test.log(LogStatus.PASS, "DashBord is displayed After Login.");
+		test = extent.startTest("Successful Login with valid credentials.");
+		//login.login_BTN(driver).click();
+		test.log(LogStatus.PASS, "Verifying DashBord");
+		if (dashboardObj.verifyDashboardPrescence(driver)){;
+			test.log(LogStatus.PASS, "DashBord is displayed After Login.");
+		};
+		
 		test.log(LogStatus.PASS,"verifying Administrator's Dashboard header text");
-		dashboardObj.verifyHeaderStyle(driver);
-		test.log(LogStatus.PASS,"Sucefully displayed Administrator's Dashboard header text");
+		if (dashboardObj.verifyHeaderStyle(driver)){;
+			test.log(LogStatus.PASS,"Sucessfully displayed Administrator's Dashboard header text");
+		};
+				
 		extent.endTest(test);
 	}
 	@AfterClass
 	public void closeBrowserInstance() 
 	{
-
 		driver.close();
 	}
 

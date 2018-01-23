@@ -7,15 +7,16 @@ import org.title21.utility.BaseClass;
 import org.title21.validation.entities.ErrorMessages;
 public class LoginPage_POM 
 {
-	public BaseClass b1=new BaseClass();
+	public BaseClass baseClassObj=new BaseClass();
 	public WebDriver driver;
 	public WebElement element;
 		
 	By username=By.cssSelector(".form-control#UserId");
 	By password=By.cssSelector(".form-control#Password");
 	By loginButton=By.cssSelector(".btn.t21-btn-primary");
-	By passerrormessage=By.xpath(".//*[@id='login_panel']/form/div[3]/span");
-	
+	By passwordErrorMessage=By.xpath(".//*[@id='login_panel']/form/div[3]/span");
+	By passwordValidationMessage=By.xpath("//span[@data-valmsg-for='Password']");
+	By useridValidationMessage=By.xpath("//span[@data-valmsg-for='UserId']");
 	
 	public WebElement login_username(WebDriver driver)
 	{
@@ -35,22 +36,73 @@ public class LoginPage_POM
 
 		return element;
 	}
-	public WebElement passwordErrorMessage(WebDriver driver)
-	{
-		element = driver.findElement(passerrormessage);
-		String error = element.getText();
-		System.out.println(error);
-		if(error.contains(ErrorMessages.passworderrormessages))
+	public WebElement passworderrorMessageArea(WebDriver driver){
+		
+		element = driver.findElement(passwordErrorMessage);
+		
+		return element;
+	}
+	public WebElement userIDValidationMessage(WebDriver driver){
+		
+		element = driver.findElement(useridValidationMessage);
+		
+		return element;
+	}
+	
+	public WebElement passwordValidationMessage(WebDriver driver){
+		
+		element = driver.findElement(passwordValidationMessage);
+		
+		return element;
+	}
+	
+	public boolean verifyPasswordValidationMessage(WebDriver driver){
+		
+		element=passwordValidationMessage(driver);
+		String errorMessage = element.getText();		
+		if(errorMessage.contains(ErrorMessages.messagewithoutPassword))
 		{
-			System.out.println("True");
-			b1.captureScreenShot(driver,"passResult");
+			baseClassObj.captureScreenShot(driver,"messagewithoutPassword");
+			return true;
 		}
 		else
-		{
-			System.out.println("False");
+		{			
+			return false;
 		}
-		return element;
 		
+	}
+	
+	public boolean verifyUserIDValidationMessage(WebDriver driver){
+		
+		element=passwordValidationMessage(driver);
+		String errorMessage = element.getText();		
+		if(errorMessage.contains(ErrorMessages.messagewithoutUsername))
+		{
+			baseClassObj.captureScreenShot(driver,"messagewithoutUsername");
+			return true;
+		}
+		else
+		{			
+			return false;
+		}		
+		
+	}
+	
+	public boolean verifyPasswordErrorMessage(WebDriver driver)
+	{
+		//element = driver.findElement(passwordErrorMessage);
+		element=passworderrorMessageArea(driver);
+		String errorMessage = element.getText();		
+		if(errorMessage.contains(ErrorMessages.passworderrormessages))
+		{
+			baseClassObj.captureScreenShot(driver,"passwordFieldErrorMessage");
+			return true;
+		}
+		else
+		{			
+			return false;
+		}
+				
 	}
 
 	

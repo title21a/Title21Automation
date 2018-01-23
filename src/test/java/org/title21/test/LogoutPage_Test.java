@@ -23,7 +23,7 @@ public class LogoutPage_Test extends BaseClass {
 	}
 
 	@Test(testName = "logout_admin", groups = "Logout", priority = 0)
-	public void Login() throws Exception {
+	public void Logout() throws Exception {
 		
 		test = extent.startTest("logoutFunction");
 		test.log(LogStatus.PASS, "Opened URL");
@@ -37,11 +37,13 @@ public class LogoutPage_Test extends BaseClass {
 		logout.administratorDropDown(driver).click();
 		test.log(LogStatus.PASS, "Clicked on Administrator dropdown after sucefully login");
 		logout.logoutLink(driver).click();
-		test.log(LogStatus.PASS, "Clicked on logout link");	
+		test.log(LogStatus.PASS, "Clicked on logout link"+
+		test.addScreenCapture(captureScreenShot(driver, "clickonLogoutlink")));	
+		
 		Thread.sleep(3000);
 		logout.logoutButton(driver).click();
-		test.log(LogStatus.PASS, "Clicked on logout button");
+		test.log(LogStatus.PASS, "Clicked on logout button"+
+		test.addScreenCapture(captureScreenShot(driver, "ClickOnLogoutButton")));
 		extent.endTest(test);
-
 	}
 }
