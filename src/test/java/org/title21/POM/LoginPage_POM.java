@@ -14,9 +14,9 @@ public class LoginPage_POM
 	By username=By.cssSelector(".form-control#UserId");
 	By password=By.cssSelector(".form-control#Password");
 	By loginButton=By.cssSelector(".btn.t21-btn-primary");
-	By passwordErrorMessage=By.xpath(".//*[@id='login_panel']/form/div[3]/span");
-	By passwordValidationMessage=By.xpath("//span[@data-valmsg-for='Password']");
-	By useridValidationMessage=By.xpath("//span[@data-valmsg-for='UserId']");
+	By passwordErrorMessage=By.xpath(".//*[@id='login_panel']/form/div[3]/span");	
+	By useridValidationMessage=By.cssSelector(".text-danger#UserId-error");
+	By passwordValidationMessage=By.cssSelector(".text-danger#Password-error");
 	
 	public WebElement login_username(WebDriver driver)
 	{
@@ -74,7 +74,7 @@ public class LoginPage_POM
 	
 	public boolean verifyUserIDValidationMessage(WebDriver driver){
 		
-		element=passwordValidationMessage(driver);
+		element=userIDValidationMessage(driver);
 		String errorMessage = element.getText();		
 		if(errorMessage.contains(ErrorMessages.messagewithoutUsername))
 		{
@@ -82,7 +82,7 @@ public class LoginPage_POM
 			return true;
 		}
 		else
-		{			
+		{	
 			return false;
 		}		
 		

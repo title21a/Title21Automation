@@ -41,7 +41,8 @@ public class BaseClass {
 
 	String excelFile;
 	String sheetName;
-
+	static String imagesDirectory="";
+	
 	@BeforeMethod
 	public void beforeMethod() {
 		extent = ExtentManager.getReporter(filePath);
@@ -87,17 +88,29 @@ public class BaseClass {
 	}
 	public void implicitwait(WebDriver driver)
 	{
-		driver.manage().timeouts().implicitlyWait(200, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(180, TimeUnit.SECONDS);
 	}
 
+	public static void createDirectory(String classname){
+		
+		imagesDirectory=System.getProperty("user.dir")+"\\extentReports"+"\\"+classname;
+		File file=new File(imagesDirectory);
+		if (!file.exists()){
+			file.mkdir();
+		} else {
+            System.out.println("Failed to create directory.");
+        }
+	}
+	
+	
 	public static String captureScreenShot(WebDriver driver, String screenshotName) {
 		try {
 			Calendar calander = Calendar.getInstance();
 			SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
 			File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 			
-			String workingDir = System.getProperty("user.dir")+"\\extentReports";
-			String dest = workingDir + "\\"+screenshotName + "-"+formater.format(calander.getTime())+".png";
+			//String workingDir = System.getProperty("user.dir")+"\\extentReports";
+			String dest = imagesDirectory + "\\"+screenshotName + "-"+formater.format(calander.getTime())+".png";
 			File destination = new File(dest);
 			FileUtils.copyFile(src, destination);
 			System.out.println("ScreenShot Taken");

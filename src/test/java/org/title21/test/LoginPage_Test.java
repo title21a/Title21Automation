@@ -12,11 +12,14 @@ import com.relevantcodes.extentreports.LogStatus;
 public class LoginPage_Test extends BaseClass {
 	LoginPage_POM login = new LoginPage_POM();
 	DashBord dashboardObj = new DashBord();
+	String className="";
 
 	@BeforeClass
 	public void openURL() 
 	{
 		browser("Chrome", "https://quantumdev.title21.com");
+		className = this.getClass().getName();
+		createDirectory(className);
 	}
 	@Test(testName = "login_admin", groups = "Logins", priority = 0)
 	public void LoginWithInvalidCredentials() throws Exception 
@@ -25,19 +28,23 @@ public class LoginPage_Test extends BaseClass {
 		test.log(LogStatus.PASS, "Opened URL");
 		login.login_BTN(driver).click();
 		Thread.sleep(2000);
+		
 		if (login.verifyUserIDValidationMessage(driver)){
-			test.addScreenCapture(captureScreenShot(driver, "withBlankUsername"));
+			test.log(LogStatus.PASS, "System displays validation message with blank username."+
+			test.addScreenCapture(captureScreenShot(driver, "withBlankUsername")));
 		}
 		
 		login.login_username(driver).sendKeys(data[0][0]);
 		test.log(LogStatus.PASS, "Username Entered");
 		login.login_BTN(driver).click();
-		test.log(LogStatus.PASS, "Clicked on Login button after entering Username");
+		test.log(LogStatus.PASS, "Clicked on Login button after entering Username.");
 		test.addScreenCapture(captureScreenShot(driver, "AfterEnteringProperUsername"));
 		login.login_BTN(driver).click();
 		Thread.sleep(2000);
+		
 		if (login.verifyPasswordValidationMessage(driver)){
-			test.addScreenCapture(captureScreenShot(driver, "WithblankPassword"));
+			test.log(LogStatus.PASS, "System displays validation message with blank password"+
+			test.addScreenCapture(captureScreenShot(driver, "MessageWithblankPassword")));
 		}
 		
 		login.login_password(driver).sendKeys(data[0][1]);
@@ -46,13 +53,12 @@ public class LoginPage_Test extends BaseClass {
 		test.log(LogStatus.PASS, "Clicked on Login Button.");
 		
 		if (login.verifyPasswordErrorMessage(driver)){			
-			test.log(LogStatus.PASS, "Verify error message without entering password."+
+			test.log(LogStatus.PASS, "Verify error message with incorrect password."+
 			test.addScreenCapture(captureScreenShot(driver, "PasswordErrorMessageSuccess")));
-		}else{
-			throw new Exception("Password message not matched.");
-			
+		}else{			
+			throw new Exception("Password message not matched.");			
 		};
-		test.log(LogStatus.PASS, "Verify error message without entering password.");
+		
 		extent.endTest(test);
 	}	
 	
@@ -71,7 +77,7 @@ public class LoginPage_Test extends BaseClass {
 	public void VerifyUserLoggedin() 
 	{
 		test = extent.startTest("Successful Login with valid credentials.");
-		//login.login_BTN(driver).click();
+		login.login_BTN(driver).click();
 		test.log(LogStatus.PASS, "Verifying DashBord");
 		if (dashboardObj.verifyDashboardPrescence(driver)){;
 			test.log(LogStatus.PASS, "DashBord is displayed After Login.");
