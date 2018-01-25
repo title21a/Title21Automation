@@ -1,6 +1,7 @@
 /bin/
 /target/
 /Reports/
+/extentReports/
 /test-output/
 /build_artifacts/
 /.settings

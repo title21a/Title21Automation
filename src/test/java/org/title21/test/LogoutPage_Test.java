@@ -6,6 +6,7 @@ import java.util.Set;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import org.testng.asserts.SoftAssert;
 import org.title21.POM.LoginPage_POM;
 import org.title21.POM.LogoutPage_POM;
 import org.title21.utility.BaseClass;
@@ -16,6 +17,7 @@ public class LogoutPage_Test extends BaseClass {
 	
 	public LoginPage_POM login = new LoginPage_POM();
 	public LogoutPage_POM logout = new LogoutPage_POM();
+	SoftAssert softAssertion=new SoftAssert();
 	String className="";
 	
 	@BeforeClass
@@ -44,7 +46,7 @@ public class LogoutPage_Test extends BaseClass {
 		test.log(LogStatus.PASS, "Clicked on logout link"+
 		test.addScreenCapture(captureScreenShot(driver, "clickonLogoutlink")));	
 		
-		Thread.sleep(3000);
+		sleep(2);
 		
 		if (logout.verifyMessageonModalDialog(driver)){
 			test.log(LogStatus.PASS, "Message on Logout alert verified."+
@@ -60,7 +62,7 @@ public class LogoutPage_Test extends BaseClass {
 	public void verifyLogout() throws Exception{
 		
 		test = extent.startTest("Verifying Logout");
-		Thread.sleep(2000);
+		waitForPageToLoad(driver,3);
 		login.login_username(driver).sendKeys("admin");
 		test.log(LogStatus.PASS, "User logout from the application successfully"+
 		test.addScreenCapture(captureScreenShot(driver, "ClickOnLogoutButton")));		

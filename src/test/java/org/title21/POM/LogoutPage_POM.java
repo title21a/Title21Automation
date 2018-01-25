@@ -13,7 +13,6 @@ public WebDriver driver;
 public WebElement element;
  By administratordropdown=By.cssSelector(".dropdown-toggle.t21-nav-bar-dropdown");
  By logoutlink=By.xpath(".//*[@id='Logout']/a");
- //By logoutbutton=By.xpath(".//*[@id='logout-modal']/div/div/div[3]/a");
  By logoutbutton=By.xpath("//a[contains(@href,'Logout')]");
  By modalDialogText=By.cssSelector(".modal-body");
 

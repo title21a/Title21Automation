@@ -5,7 +5,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.title21.utility.BaseClass;
 
-public class DashBord 
+public class DashBord_POM
+
 {
 	BaseClass b=new BaseClass();
 	protected WebDriver driver;
