@@ -4,7 +4,7 @@ import org.openqa.selenium.By;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.title21.POM.LoginPage_POM;
-import org.title21.POM.Reports;
+import org.title21.POM.Reports_POM;
 import org.title21.utility.BaseClass;
 /*
  * not to execute now.

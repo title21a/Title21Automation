@@ -9,40 +9,48 @@ import java.util.Formatter;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
+
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.ITestResult;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
+import org.testng.asserts.SoftAssert;
 import org.title21.reporting.ExtentManager;
 
+//import com.framework.selenium.BaseClass;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
 public class BaseClass {
+
 	protected WebDriver driver;
 	protected ExtentReports extent;
 	protected ExtentTest test;
 	protected String filePath;
 	protected String data[][];
-
+	protected WebDriverWait waitDriver = null;
+	
 	String excelFile;
 	String sheetName;
-	static String imagesDirectory="";
-	
+	static String imagesDirectory = "";
+
 	@BeforeMethod
 	public void beforeMethod() {
 		extent = ExtentManager.getReporter(filePath);
@@ -65,18 +73,18 @@ public class BaseClass {
 	}
 
 	@BeforeSuite
-	@Parameters({ "ef", "sn" })
-	public void beforeSuite(String ef, String sn) throws Exception {
-		String workingDir = System.getProperty("user.dir")+"\\extentReports";
+	@Parameters({ "excelFilePath", "sheetName" })
+	public void beforeSuite(String excelFilePath, String sheetName) throws Exception {
+		String workingDir = System.getProperty("user.dir") + "\\extentReports";
 		Calendar calander = Calendar.getInstance();
 		SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
 		
-		//filePath = workingDir+"\\reports" + formater.format(calander.getTime()) + ".html";
-		filePath = workingDir+"\\index.html";
-		excelFile = ef;
-		sheetName = sn;
+		filePath = workingDir + "\\index.html";
+		excelFile = excelFilePath;
+		sheetName = sheetName;
 		data = ExcelData(excelFile, sheetName);
-		extent = ExtentManager.getReporter(filePath);
+		extent = ExtentManager.getReporter(filePath);	
+		
 	}
 
 	@AfterSuite
@@ -86,31 +94,32 @@ public class BaseClass {
 		driver = new ChromeDriver();
 		driver.get("file://" + filePath);
 	}
-	public void implicitwait(WebDriver driver)
-	{
+
+	public void implicitwait(WebDriver driver) {
 		driver.manage().timeouts().implicitlyWait(180, TimeUnit.SECONDS);
 	}
 
-	public static void createDirectory(String classname){
-		
-		imagesDirectory=System.getProperty("user.dir")+"\\extentReports"+"\\"+classname;
-		File file=new File(imagesDirectory);
-		if (!file.exists()){
+	public static void createDirectory(String classname) {
+
+		classname = classname.substring(4);
+		imagesDirectory = System.getProperty("user.dir") + "\\extentReports" + "\\" + classname;
+		File file = new File(imagesDirectory);
+		if (!file.exists()) {
 			file.mkdir();
 		} else {
-            System.out.println("Failed to create directory.");
-        }
+			System.out.println("Failed to create directory.");
+		}
 	}
-	
-	
+
 	public static String captureScreenShot(WebDriver driver, String screenshotName) {
 		try {
 			Calendar calander = Calendar.getInstance();
 			SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
 			File src = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-			
-			//String workingDir = System.getProperty("user.dir")+"\\extentReports";
-			String dest = imagesDirectory + "\\"+screenshotName + "-"+formater.format(calander.getTime())+".png";
+
+			// String workingDir =
+			// System.getProperty("user.dir")+"\\extentReports";
+			String dest = imagesDirectory + "\\" + screenshotName + "-" + formater.format(calander.getTime()) + ".png";
 			File destination = new File(dest);
 			FileUtils.copyFile(src, destination);
 			System.out.println("ScreenShot Taken");
@@ -123,12 +132,35 @@ public class BaseClass {
 		}
 	}
 
+	public void waitForPageToLoad(WebDriver driver,int seconds) {
+		// sleep(2);
+		waitDriver = new WebDriverWait(driver, seconds);
+		waitDriver.until(new ExpectedCondition<Boolean>() {
+			@Override
+			public Boolean apply(WebDriver webDriver) {
+				try {
+					return ((String) ((JavascriptExecutor) webDriver).executeScript("return document.readyState"))
+							.equals("complete");
+				} catch (Exception e) {
+					return false;
+				}
+			}
+
+			@Override
+			public String toString() {
+				return "Page load complete";
+			}
+
+		});
+	}
+
 	public void browser(String browser, String url) {
+
 		if (browser.equalsIgnoreCase("chrome")) {
 			extent = ExtentManager.getReporter(filePath);
 			System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 			driver = new ChromeDriver();
-			driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+			implicitwait(driver);
 			driver.get(url);
 			driver.manage().window().maximize();
 		}
@@ -137,20 +169,19 @@ public class BaseClass {
 			extent = ExtentManager.getReporter(filePath);
 			System.setProperty("webdriver.ie.driver", ".\\drivers\\IEDriverServer.exe");
 			driver = new InternetExplorerDriver();
-			driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+			implicitwait(driver);
 			driver.get(url);
 		}
 
 		else if (browser.equalsIgnoreCase("firefox")) {
 			System.setProperty("webdriver.gecko.driver", ".\\drivers\\geckodriver.exe");
 			driver = new FirefoxDriver();
-			driver.manage().timeouts().implicitlyWait(15, TimeUnit.SECONDS);
+			implicitwait(driver);
 			driver.get(url);
 		}
 	}
 
-	public WebDriver SwitchToFrame() 
-	{
+	public WebDriver SwitchToFrame() {
 		driver.switchTo().frame(0);
 		return driver;
 	}
@@ -207,5 +238,13 @@ public class BaseClass {
 			}
 		}
 		return strReturn;
+	}
+
+	public static void sleep(double seconds) {
+		try {
+			Thread.sleep(Double.valueOf(seconds * 1000).intValue());
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 	}
 }

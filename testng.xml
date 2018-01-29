@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="DDFSuite">
-	<parameter name="ef" value=".\\testdata\\Login.xlsx" />
-	<parameter name="sn" value="LoginCredentials" />
+	<parameter name="excelFilePath" value=".\\testdata\\Login.xlsx" />
+	<parameter name="sheetName" value="LoginCredentials" />
+	<parameter name="browser" value="chrome" />
+	<parameter name="url" value="" />
 	<test name="TestDDF">
 		<classes>			
 			<class name="org.title21.test.LoginPage_Test"/>

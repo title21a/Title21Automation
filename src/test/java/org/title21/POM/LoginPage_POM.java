@@ -1,11 +1,13 @@
 package org.title21.POM;
 
 import org.openqa.selenium.By;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.title21.utility.BaseClass;
 import org.title21.validation.entities.ErrorMessages;
-public class LoginPage_POM 
+
+public class LoginPage_POM extends BaseClass
 {
 	public BaseClass baseClassObj=new BaseClass();
 	public WebDriver driver;
