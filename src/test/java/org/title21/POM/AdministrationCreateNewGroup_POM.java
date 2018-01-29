@@ -18,7 +18,7 @@ public WebElement element;
  By addgroupcancelbutton=By.cssSelector(".btn.t21-btn-default.pull-left");
  By groupfilterresult=By.cssSelector(".form-control.t21-placeholder");
  By groupfilterresutgobutton=By.xpath("//button[@type='submit'][@tabindex='1']");
- 		
+ By nogroupfoundresulttext=By.xpath("//*[text()='No group found']");
  
  public WebElement groupsTab(WebDriver driver)
  {
@@ -78,6 +78,11 @@ public WebElement element;
 	 return element;
  }
  
+ public WebElement noGroupFoundResultText(WebDriver driver){
+	 element=driver.findElement(nogroupfoundresulttext);
+	 return element;
+ }
+ 
  /*
 	 * 
 	 * This method verify text on Administration 
@@ -98,5 +103,26 @@ public WebElement element;
 		}
 		
 	}
+	
+	public boolean verifyNoGroupFoundText(WebDriver driver){
+		
+		String NoGroupFoundResultText = noGroupFoundResultText(driver).getText();
+		
+		if(NoGroupFoundResultText.equalsIgnoreCase("No group found"))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
+	}
+	
+
+	public void switchToModalDialog(WebDriver driver){
+		 
+		 driver.switchTo().alert();
+	 }
 	
 }
