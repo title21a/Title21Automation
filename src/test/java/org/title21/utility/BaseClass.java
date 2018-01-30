@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Formatter;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -47,8 +48,10 @@ public class BaseClass {
 	protected String data[][];
 	protected WebDriverWait waitDriver = null;
 	
-	String excelFile;
-	String sheetName;
+	public String excelFile="";
+	public String sheetName="";
+	public static String browser="";
+	public static String baseUrl="";
 	static String imagesDirectory = "";
 
 	@BeforeMethod
@@ -73,15 +76,31 @@ public class BaseClass {
 	}
 
 	@BeforeSuite
-	@Parameters({ "excelFilePath", "sheetName" })
-	public void beforeSuite(String excelFilePath, String sheetName) throws Exception {
+	@Parameters({"configFile"})
+	public void beforeSuite(String configFile) throws Exception {
+		
+		Properties p=new Properties();
+		FileInputStream readconfig=new FileInputStream(configFile);
+		p.load(readconfig);
+		
+		//initializing variables
+		/*		
+		excelFile = excelFilePath;
+		sheetName = sheetName;
+		browser=browser;
+		baseUrl=baseUrl;
+		*/
+		browser=p.getProperty("browser");
+		baseUrl=p.getProperty("baseUrl");
+		excelFile=p.getProperty("excelFilePath");
+		sheetName=p.getProperty("sheetName");
+		
 		String workingDir = System.getProperty("user.dir") + "\\extentReports";
 		Calendar calander = Calendar.getInstance();
 		SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
 		
-		filePath = workingDir + "\\index.html";
-		excelFile = excelFilePath;
-		sheetName = sheetName;
+		filePath = workingDir + "\\index.html";		
+		
 		data = ExcelData(excelFile, sheetName);
 		extent = ExtentManager.getReporter(filePath);	
 		
@@ -136,7 +155,6 @@ public class BaseClass {
 		// sleep(2);
 		waitDriver = new WebDriverWait(driver, seconds);
 		waitDriver.until(new ExpectedCondition<Boolean>() {
-			@Override
 			public Boolean apply(WebDriver webDriver) {
 				try {
 					return ((String) ((JavascriptExecutor) webDriver).executeScript("return document.readyState"))
@@ -153,15 +171,15 @@ public class BaseClass {
 
 		});
 	}
-
-	public void browser(String browser, String url) {
-
+		
+	public void getBrowser() {				
+		     
 		if (browser.equalsIgnoreCase("chrome")) {
 			extent = ExtentManager.getReporter(filePath);
 			System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 			driver = new ChromeDriver();
 			implicitwait(driver);
-			driver.get(url);
+			driver.get(baseUrl);
 			driver.manage().window().maximize();
 		}
 
@@ -170,14 +188,14 @@ public class BaseClass {
 			System.setProperty("webdriver.ie.driver", ".\\drivers\\IEDriverServer.exe");
 			driver = new InternetExplorerDriver();
 			implicitwait(driver);
-			driver.get(url);
+			driver.get(baseUrl);
 		}
 
 		else if (browser.equalsIgnoreCase("firefox")) {
 			System.setProperty("webdriver.gecko.driver", ".\\drivers\\geckodriver.exe");
 			driver = new FirefoxDriver();
 			implicitwait(driver);
-			driver.get(url);
+			driver.get(baseUrl);
 		}
 	}
 
