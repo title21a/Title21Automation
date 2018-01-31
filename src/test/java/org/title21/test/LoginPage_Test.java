@@ -19,7 +19,8 @@ public class LoginPage_Test extends BaseClass {
 	@BeforeClass
 	public void openURL() 
 	{
-		browser("Chrome", "https://quantumdev.title21.com");
+		//browser("Chrome", "https://quantumdev.title21.com");
+		getBrowser();
 		className = this.getClass().getName();
 		createDirectory(className);
 		
@@ -90,8 +91,7 @@ public class LoginPage_Test extends BaseClass {
 		test.log(LogStatus.PASS,"verifying Administrator's Dashboard header text");
 		if (dashboardObj.verifyHeaderStyle(driver)){;
 			test.log(LogStatus.PASS,"Sucessfully displayed Administrator's Dashboard header text");
-		};
-				
+     	};
 		extent.endTest(test);
 	}
 	@AfterClass

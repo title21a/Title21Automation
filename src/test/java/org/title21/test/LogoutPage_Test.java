@@ -23,7 +23,7 @@ public class LogoutPage_Test extends BaseClass {
 	@BeforeClass
 	public void openURL() {
 		
-		browser("Chrome", "https://quantumdev.title21.com");
+		getBrowser();
 		className = this.getClass().getName();
 		createDirectory(className);
 	}
