@@ -4,8 +4,8 @@
 	<parameter name="configFile" value="config.properties"/>
 	<test name="TestDDF">
 		<classes>			
-			<class name="org.title21.test.LoginPage_Test"/>
-			<class name="org.title21.test.LogoutPage_Test"/>
+			<class name="org.title21.test.CreateGroup_Test"/>
+			
 			<!--class name="org.title21.test.Wizard" /-->				
 		</classes>
 	</test>

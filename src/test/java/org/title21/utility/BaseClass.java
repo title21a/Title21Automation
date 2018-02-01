@@ -32,6 +32,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 import org.testng.asserts.SoftAssert;
+import org.title21.POM.AdministrationPage_POM;
 import org.title21.reporting.ExtentManager;
 
 //import com.framework.selenium.BaseClass;
@@ -41,9 +42,9 @@ import com.relevantcodes.extentreports.LogStatus;
 
 public class BaseClass {
 
-	protected WebDriver driver;
-	protected ExtentReports extent;
-	protected ExtentTest test;
+	protected static WebDriver driver;
+	protected static ExtentReports extent;
+	protected static ExtentTest test;
 	protected String filePath;
 	protected String data[][];
 	protected WebDriverWait waitDriver = null;
@@ -198,6 +199,36 @@ public class BaseClass {
 			driver.get(baseUrl);
 		}
 	}
+	
+	
+	public static void getAdministrationPage() {
+		
+		AdministrationPage_POM administrationPage = new AdministrationPage_POM();
+		test = extent.startTest("CreateGroup_admin");
+		
+		String administratorTab = administrationPage.administratorDropDown(driver).getText();
+		
+		if(administratorTab.contains("Administrator"))
+		{
+			administrationPage.administratorDropDown(driver).click();
+			test.log(LogStatus.PASS, "Successfully click on 'administrator");
+			administrationPage.administrationLink(driver).click();
+			test.log(LogStatus.PASS, "Successfully click on 'administration' link.");
+			
+			if(administrationPage.verifyAdministrationPagePrescence(driver)) {
+				test.log(LogStatus.PASS, "Successfully verify 'administration Page' Prescence.");
+			}else {
+				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
+			}
+			
+		}else{
+			
+			test.log(LogStatus.FAIL, "Unable to find 'Groups' tab");
+			
+		}
+		extent.endTest(test);
+	}
+	
 
 	public WebDriver SwitchToFrame() {
 		driver.switchTo().frame(0);
