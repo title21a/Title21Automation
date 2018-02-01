@@ -8,6 +8,7 @@ public class AdministrationCreateNewGroup_POM
 {
 public WebDriver driver;
 public WebElement element;
+
  By groupslink=By.xpath("//a[contains(@href,'GetGroupList')]");
  By addnewlink=By.xpath("//a[contains(@href,'AddUserGroup')]");
  By addgroupheaderlable=By.xpath("//*[text()='Add Group']");

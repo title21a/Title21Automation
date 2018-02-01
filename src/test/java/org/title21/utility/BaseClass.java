@@ -90,6 +90,7 @@ public class BaseClass {
 		browser=browser;
 		baseUrl=baseUrl;
 		*/
+		
 		browser=p.getProperty("browser");
 		baseUrl=p.getProperty("baseUrl");
 		excelFile=p.getProperty("excelFilePath");
