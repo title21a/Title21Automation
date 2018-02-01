@@ -16,7 +16,7 @@ import com.relevantcodes.extentreports.LogStatus;
 public class LogoutPage_Test extends BaseClass {
 	
 	LoginPage_POM login; 
-	LogoutPage_POM logout = new LogoutPage_POM();
+	LogoutPage_POM logout;
 	SoftAssert softAssertion=new SoftAssert();
 	String className="";
 	
@@ -41,9 +41,11 @@ public class LogoutPage_Test extends BaseClass {
 		login.getpassword().sendKeys("administrator");
 		test.log(LogStatus.PASS, "Password Entered");
 		login.getLogin_button().click();
-		logout.administratorDropDown(driver).click();
+		logout=new LogoutPage_POM(driver);
+		logout.getAdmindropdown().click();	
 		test.log(LogStatus.PASS, "Clicked on Administrator dropdown after sucessfully login.");
-		logout.logoutLink(driver).click();
+		logout.getlogoutLink().click();
+		
 		test.log(LogStatus.PASS, "Clicked on logout link"+
 		test.addScreenCapture(captureScreenShot(driver, "clickonLogoutlink")));	
 		
@@ -54,7 +56,7 @@ public class LogoutPage_Test extends BaseClass {
 			test.addScreenCapture(captureScreenShot(driver, "Logout Alert")));
 		};
 		
-		logout.logoutButton(driver).click();
+		logout.getLogoutButton().click();
 		test.log(LogStatus.PASS, "Clicked on logout button"+
 		test.addScreenCapture(captureScreenShot(driver, "ClickOnLogoutButton")));
 		extent.endTest(test);

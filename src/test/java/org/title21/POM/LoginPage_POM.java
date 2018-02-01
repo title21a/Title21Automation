@@ -36,16 +36,7 @@ public class LoginPage_POM extends BaseClass
 		this.driver = driver;
 		PageFactory.initElements(driver, this);
 	}
-			
-	//By passwordErrorMessage=By.xpath(".//*[@id='login_panel']/form/div[3]/span");	
-	//By useridValidationMessage=By.cssSelector(".text-danger#UserId-error");
-	//By passwordValidationMessage=By.cssSelector(".text-danger#Password-error");
 	
-	/*public WebElement login_username(WebDriver driver)
-	{
-		element=driver.findElement(username);
-		return element;
-	}*/
 	
 	public WebElement getUsername()
 	{
@@ -111,7 +102,6 @@ public class LoginPage_POM extends BaseClass
 	
 	public boolean verifyPasswordErrorMessage(WebDriver driver)
 	{
-		//element = driver.findElement(passwordErrorMessage);
 		element=getPasswordErrorMessage();
 		String errorMessage = element.getText();		
 		if(errorMessage.contains(ErrorMessages.passworderrormessages))
@@ -126,6 +116,12 @@ public class LoginPage_POM extends BaseClass
 				
 	}
 
-	
+	public void loginFunction(){		
+		getUsername().sendKeys(adminUsername);
+		getLogin_button().click();
+		getpassword().sendKeys(adminPassword);
+		getLogin_button().click();
+		sleep(2);
+	}
 
 }
