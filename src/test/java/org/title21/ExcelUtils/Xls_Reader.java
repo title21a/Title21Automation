@@ -1,4 +1,4 @@
-/*
+
 package org.title21.ExcelUtils;
 
 
@@ -294,7 +294,7 @@ public class Xls_Reader {
 	    hlink_style.setFont(hlink_font);
 	    //hlink_style.setWrapText(true);
 
-	    XSSFHyperlink link = createHelper.createHyperlink();
+	    XSSFHyperlink link = createHelper.createHyperlink(null);
 	    link.setAddress(url);
 	    cell.setHyperlink(link);
 	    cell.setCellStyle(hlink_style);
@@ -492,7 +492,7 @@ public class Xls_Reader {
 	}
 	
 	//String sheetName, String testCaseName,String keyword ,String URL,String message
-	/*
+	
 	public boolean addHyperLink(String sheetName,String screenShotColName,String testCaseName,int index,String url,String message){
 		//System.out.println("ADDING addHyperLink******************");
 		
@@ -562,5 +562,3 @@ public class Xls_Reader {
 	}
 	
 }
-
-*/
