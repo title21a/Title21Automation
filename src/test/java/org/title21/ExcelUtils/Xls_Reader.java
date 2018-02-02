@@ -1,4 +1,4 @@
-/*
+
 package org.title21.ExcelUtils;
 
 
@@ -9,10 +9,12 @@ import org.apache.poi.hssf.usermodel.HSSFHyperlink;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFHyperlink;
 
+import java.awt.Color;
 import java.io.*;
 import java.util.Calendar;
 
@@ -294,7 +296,7 @@ public class Xls_Reader {
 	    hlink_style.setFont(hlink_font);
 	    //hlink_style.setWrapText(true);
 
-	    XSSFHyperlink link = createHelper.createHyperlink();
+	    XSSFHyperlink link = createHelper.createHyperlink(null);
 	    link.setAddress(url);
 	    cell.setHyperlink(link);
 	    cell.setCellStyle(hlink_style);
@@ -361,7 +363,8 @@ public class Xls_Reader {
 			
 		XSSFCellStyle style = workbook.createCellStyle();
 		style.setFillForegroundColor(HSSFColor.GREY_40_PERCENT.index);
-		style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+		
+		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
 		
 		sheet=workbook.getSheetAt(index);
 		
@@ -404,7 +407,7 @@ public class Xls_Reader {
 		XSSFCellStyle style = workbook.createCellStyle();
 		style.setFillForegroundColor(HSSFColor.GREY_40_PERCENT.index);
 		XSSFCreationHelper createHelper = workbook.getCreationHelper();
-		style.setFillPattern(HSSFCellStyle.NO_FILL);
+		style.setFillPattern(FillPatternType.NO_FILL);
 			    
 	
 		for(int i =0;i<getRowCount(sheetName);i++){
@@ -492,7 +495,7 @@ public class Xls_Reader {
 	}
 	
 	//String sheetName, String testCaseName,String keyword ,String URL,String message
-	/*
+	
 	public boolean addHyperLink(String sheetName,String screenShotColName,String testCaseName,int index,String url,String message){
 		//System.out.println("ADDING addHyperLink******************");
 		
@@ -562,5 +565,3 @@ public class Xls_Reader {
 	}
 	
 }
-
-*/
