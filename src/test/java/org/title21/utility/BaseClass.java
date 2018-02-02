@@ -204,7 +204,7 @@ public class BaseClass {
 	public static void getAdministrationPage() {
 		
 		AdministrationPage_POM administrationPage = new AdministrationPage_POM();
-		test = extent.startTest("CreateGroup_admin");
+		test = extent.startTest("NavigateToAdministrationPage");
 		
 		String administratorTab = administrationPage.administratorDropDown(driver).getText();
 		
