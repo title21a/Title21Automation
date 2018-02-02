@@ -21,33 +21,19 @@ public class AdministratonPage_Test extends BaseClass {
 	boolean group=false;
 	String className="";
 
-	AdministrationPage_POM administrationPage = new AdministrationPage_POM();
-	LoginPage_POM login = new LoginPage_POM();
-	public LogoutPage_POM logout = new LogoutPage_POM();
+	AdministrationPage_POM administrationPage; 
+	LoginPage_POM login; 
+	LogoutPage_POM logout;
 
 	
 	@BeforeClass
 	public void openURL() 
 	{
-		//browser("Chrome", "https://quantumdev.title21.com");
-		
 		getBrowser();
 		className = this.getClass().getName();
 		createDirectory(className);
-		//Call Login keyword
-		test = extent.startTest("LoginIntoAdministration");
-		login.login_username(driver).sendKeys(data[0][0]);
-		test.log(LogStatus.PASS, "Username Entered");
-		login.login_BTN(driver).click();
-		test.log(LogStatus.PASS, "Clicked on Login button after entering Username.");
-		
-		login.login_password(driver).sendKeys(data[1][1]);
-		test.log(LogStatus.PASS, "Correct password Entered.");
-		login.login_BTN(driver).click();
-		test.log(LogStatus.PASS, "Clicked on Login button."+
-		test.addScreenCapture(captureScreenShot(driver, "View after Loggedin.")));	
-		
-		extent.endTest(test);
+		login=new LoginPage_POM(driver);
+		login.loginFunction();
 	}
 	
 	@Test(testName = "Administration_Page", groups = "AdministrationPage", priority = 0)
@@ -70,7 +56,7 @@ public class AdministratonPage_Test extends BaseClass {
 			}else {
 				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
 			}
-			test.addScreenCapture(captureScreenShot(driver, "AfterEnteringProperUsername"));
+			test.addScreenCapture(captureScreenShot(driver, "administrationPage"));
 		}else{
 			
 			test.log(LogStatus.FAIL, "Unable to find 'Groups' tab");
@@ -79,30 +65,17 @@ public class AdministratonPage_Test extends BaseClass {
 		extent.endTest(test);
 	}
 	
+	@Test(testName = "logout_admin", groups = "Logout", priority = 1)
+	public void LoginWithInvalidCredentials() throws Exception 
+	{		
+		logout=new LogoutPage_POM(driver);
+		logout.logoutFunction();		
+	}
+	
+	
 	@AfterClass
 	public void closeBrowserInstance() 
 	{
-		//call Logout keyword
-		test = extent.startTest("logoutFunction");
-		logout.administratorDropDown(driver).click();
-		test.log(LogStatus.PASS, "Clicked on Administrator dropdown after sucessfully login.");
-		logout.logoutLink(driver).click();
-		test.log(LogStatus.PASS, "Clicked on logout link"+
-		test.addScreenCapture(captureScreenShot(driver, "clickonLogoutlink")));	
-		
-		sleep(2);
-		
-		if (logout.verifyMessageonModalDialog(driver)){
-			test.log(LogStatus.PASS, "Message on Logout alert verified."+
-			test.addScreenCapture(captureScreenShot(driver, "Logout Alert")));
-		};
-		
-		logout.logoutButton(driver).click();
-		test.log(LogStatus.PASS, "Clicked on logout button"+
-		test.addScreenCapture(captureScreenShot(driver, "ClickOnLogoutButton")));
-		extent.endTest(test);
-		
-		
 		driver.close();
 	}
 

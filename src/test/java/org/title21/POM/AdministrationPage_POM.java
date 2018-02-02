@@ -3,11 +3,15 @@ package org.title21.POM;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.title21.utility.BaseClass;
 
 public class AdministrationPage_POM
 {
-public WebDriver driver;
-public WebElement element;
+	
+	public BaseClass baseClassObj=new BaseClass();
+	public WebDriver driver;
+	public WebElement element;
+	
  By administratordropdown=By.cssSelector(".dropdown-toggle.t21-nav-bar-dropdown");
  By administrationlink=By.xpath("//a[contains(@href, 'Administration')]");
  By administrationtext=By.cssSelector(".t21-grid-header-style");
