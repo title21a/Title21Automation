@@ -1,8 +1,9 @@
 package org.title21.POM;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.title21.utility.BaseClass;
 
 public class DashBord_POM
@@ -10,32 +11,28 @@ public class DashBord_POM
 {
 	BaseClass b=new BaseClass();
 	protected WebDriver driver;
-	protected WebElement element;
-	By dashbord = By.cssSelector("#Dashboard>a>span");
-	By headerstyle = By.cssSelector(".t21-grid-header-style");
-
-	public WebElement dashBordText(WebDriver driver) 
-	{ 			
-		element = driver.findElement(dashbord);		
-		return element;		
+	
+	@FindBy(css="#Dashboard>a>span")
+	WebElement dashboard;
+	
+	@FindBy(css=".t21-grid-header-style" )
+	WebElement headerstyle;
+			
+	public DashBord_POM(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
 	}
 
-	
-	public WebElement headerStyle(WebDriver driver) 
-	{
-		element = driver.findElement(headerstyle);
-		return element;
-	}
-	
+
 	/*
 	 * 
 	 * This method verify text on dashboard - (Dashboard). 
 	 * @param WebDriver obj
 	 */
 	
-	public boolean verifyDashboardPrescence(WebDriver driver){
+	public boolean verifyDashboardPrescence(){
 		
-		String dashboredtext = dashBordText(driver).getText();
+		String dashboredtext = dashboard.getText();
 		System.out.println(dashboredtext);
 		
 		if(dashboredtext.equals("Dashboard"))
@@ -54,9 +51,9 @@ public class DashBord_POM
 	 * 
 	 */
 	
-	public boolean verifyHeaderStyle(WebDriver driver){
+	public boolean verifyHeaderStyle(){
 		
-		String headstyletext = headerStyle(driver).getText();
+		String headstyletext = headerstyle.getText();
 		System.out.println(headstyletext);
 		if(headstyletext.equals("Administrator's Dashboard"))
 		{
