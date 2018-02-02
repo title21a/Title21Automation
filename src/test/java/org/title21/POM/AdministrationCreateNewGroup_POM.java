@@ -4,6 +4,7 @@ import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.title21.validation.entities.ErrorMessages;
 
 public class AdministrationCreateNewGroup_POM
 {
@@ -166,6 +167,19 @@ public WebElement element;
 		
 	}
 	
+	public boolean verifyalreadyGroupCreatedErrorMsg(WebDriver driver){
+		
+		String errorMessage = alreadyGroupCreatedErrorMsg(driver).getText();		
+		if(errorMessage.contains(ErrorMessages.groupnamealreadyexist))
+		{
+			return true;
+		}
+		else
+		{	
+			return false;
+		}		
+		
+	}
 	
 	public void switchToModalDialog(WebDriver driver){
 		 

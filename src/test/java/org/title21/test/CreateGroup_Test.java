@@ -4,11 +4,11 @@ import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import org.title21.POM.AdministrationCreateNewGroup_POM;
 import org.title21.POM.LoginPage_POM;
 import org.title21.POM.LogoutPage_POM;
 import org.title21.utility.BaseClass;
+
 import com.relevantcodes.extentreports.LogStatus;
 public class CreateGroup_Test extends BaseClass {
 
@@ -89,38 +89,50 @@ public class CreateGroup_Test extends BaseClass {
 			}
 			
 			adminCreateGroup.addGroupTextBox(driver).sendKeys("Test123");
+			adminCreateGroup.addGroupTextBox(driver).click();
 			
-			adminCreateGroup.addGroupAddButton(driver).click();
 			
-			
-			if(adminCreateGroup.verifyAlerPopUp(driver)) 
-			{
-				adminCreateGroup.alerCloseButton(driver).click();
-				test.log(LogStatus.PASS, "Successfully close alert PopUp.");
-				test.addScreenCapture(captureScreenShot(driver, "AftercloseAlert"));
-			}else {
-				test.log(LogStatus.FAIL, "Unable to close alert PopUp.");
-			}
-			
-			if(adminCreateGroup.groupFilterResult(driver) != null)
-			{
-				adminCreateGroup.groupFilterResult(driver).click();
-				adminCreateGroup.groupFilterResult(driver).sendKeys("Test123");
-				adminCreateGroup.groupFilterResutGoButton(driver).click();
-				String allGroupList = adminCreateGroup.listOfGroups(driver).getText();
-				test.addScreenCapture(captureScreenShot(driver, "listOfGroups"));
+			if(adminCreateGroup.verifyalreadyGroupCreatedErrorMsg(driver)) {
 				
-				if(allGroupList.contains("Test123")) {
-					
-					test.log(LogStatus.PASS, "Successfully group is created.");
-					test.addScreenCapture(captureScreenShot(driver, "groupCreated"));
-				}else {
-					test.log(LogStatus.FAIL, "Successfully group is created.");
-				}
+				adminCreateGroup.addGroupCancelButton(driver).click();
+				
 			}
-			else
+			else 
 			{
-				test.log(LogStatus.PASS, "Unable to find 'Filter Result' text field.");
+				adminCreateGroup.addGroupAddButton(driver).click();
+				
+				if(adminCreateGroup.verifyAlerPopUp(driver)) 
+				{
+					adminCreateGroup.alerCloseButton(driver).click();
+					test.log(LogStatus.PASS, "Successfully close alert PopUp.");
+					test.addScreenCapture(captureScreenShot(driver, "AftercloseAlert"));
+				}else {
+					test.log(LogStatus.FAIL, "Unable to close alert PopUp.");
+				}
+				
+				if(adminCreateGroup.groupFilterResult(driver) != null)
+				{
+					adminCreateGroup.groupFilterResult(driver).click();
+					adminCreateGroup.groupFilterResult(driver).sendKeys("Test123");
+					adminCreateGroup.groupFilterResutGoButton(driver).click();
+					String allGroupList = adminCreateGroup.listOfGroups(driver).getText();
+					test.addScreenCapture(captureScreenShot(driver, "listOfGroups"));
+					
+					if(allGroupList.contains("Test123")) {
+						
+						test.log(LogStatus.PASS, "Successfully group is created.");
+						test.addScreenCapture(captureScreenShot(driver, "groupCreated"));
+					}else {
+						test.log(LogStatus.FAIL, "Successfully group is created.");
+					}
+				}
+				else
+				{
+					test.log(LogStatus.PASS, "Unable to find 'Filter Result' text field.");
+				}
+				
+			
+				
 			}
 			
 		}else{
