@@ -24,21 +24,20 @@ public class AddEmployee_Test extends BaseClass {
 		getBrowser();
 		className = this.getClass().getName();
 		createDirectory(className);
-		loginFunction(driver);
-		
+		login=new LoginPage_POM(driver);
+		login.loginFunction();
 	}
+	
 	@Test(testName = "login_admin", groups = "Logins", priority = 0)
 	public void LoginWithInvalidCredentials() throws Exception 
-	{
-		
+	{		
+		logout=new LogoutPage_POM(driver);
+		logout.logoutFunction();		
 	}	
-	
-	
-	
+		
 	@AfterClass
 	public void closeBrowserInstance() 
-	{
-		
+	{		
 		driver.close();
 	}
 
