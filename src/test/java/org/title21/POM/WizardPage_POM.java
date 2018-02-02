@@ -6,28 +6,58 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.title21.utility.BaseClass;
 
-public class WizardPage_POM {
+public class WizardPage_POM extends BaseClass{
+	public BaseClass baseClassObj=new BaseClass();
+	public WebDriver driver;
 	WebElement element;
-	By administratordropdown = By.cssSelector(".dropdown-toggle.t21-nav-bar-dropdown");
-	By settinglink = By.xpath(".//*[@id='Settings']/a");
-	By wizardcheckbox = By.xpath(".//*[@id='OpenWizardOnStartUp']");
-	By modeltext = By.cssSelector(".modal-title");
-	By trainingtextonmodel = By.xpath(".//*[@id='t21-workarea']/div/div/div[2]/div/div/div[2]/div/h3[1]");
-	By starttrainingnowbutton = By.cssSelector(".t21-btn-primary.btn-lg.btn.t21-top-split");
-	By approveltextmodel = By.xpath(".//*[@id='t21-workarea']/div/div/div[2]/div/div/div[2]/div/h3[2]");
-	By approvalbutton = By.cssSelector(".//*[@id='t21-workarea']/div/div/div[2]/div/div/div[2]/div/a[2]");
-	By reviewingtextmodel = By.xpath(".//*[@id='t21-workarea']/div/div/div[2]/div/div/div[2]/div/h3[3]");
-	By reviewingbutton = By.xpath(".//*[@id='t21-workarea']/div/div/div[2]/div/div/div[2]/div/a[3]");
+	
+	public WizardPage_POM(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+	
+	@FindBy(css=".dropdown-toggle.t21-nav-bar-dropdown")
+	WebElement administratordropdown;
+	
+	@FindBy(xpath =".//*[@id='Settings']/a")
+	WebElement settinglink;
+	
+	@FindBy(xpath =".//*[@id='OpenWizardOnStartUp']")
+	WebElement wizardcheckbox;
+	
+	@FindBy(css =".modal-title")
+	WebElement modeltext;
+	
+	@FindBy(xpath =".//*[@id='t21-workarea']/div/div/div[2]/div/div/div[2]/div/h3[1]")
+	WebElement trainingtextonmodel;
+	
+	@FindBy(css =".t21-btn-primary.btn-lg.btn.t21-top-split")
+	WebElement starttrainingnowbutton;
+	
+	@FindBy(xpath =".//*[@id='t21-workarea']/div/div/div[2]/div/div/div[2]/div/h3[2]")
+	WebElement approveltextmodel;
+	
+	@FindBy(xpath =".//*[@id='t21-workarea']/div/div/div[2]/div/div/div[2]/div/a[2]")
+	WebElement approvalbutton;
+	
+	@FindBy(xpath =".//*[@id='t21-workarea']/div/div/div[2]/div/div/div[2]/div/h3[3]")
+	WebElement reviewingtextmodel;
+	
+	@FindBy(xpath =".//*[@id='t21-workarea']/div/div/div[2]/div/div/div[2]/div/a[3]")
+	WebElement reviewingbutton;
 
 	public WebElement verifWizard(WebDriver driver, String vrifytrxt) {
 		List<WebElement> list = driver
 				.findElements(By.xpath(".//*[@id='t21-workarea']/div/div/div[2]/div/div/div[2]/div/h3"));
 		int size = list.size();
-		element = driver.findElement(modeltext);
-		String text = element.getText();
+		//element = driver.findElement(modeltext);
+		String text = modeltext.getText();
 		System.out.println(text);
 		if (text.equals("Title21 Wizard")) {
 			
@@ -53,7 +83,7 @@ public class WizardPage_POM {
 			}
 
 		} else {
-			driver.findElement(administratordropdown).click();
+			administratordropdown.click();
 		}
 
 		return element;
