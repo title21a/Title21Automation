@@ -3,6 +3,8 @@ package org.title21.POM;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.title21.utility.BaseClass;
 import org.title21.validation.entities.ErrorMessages;
 
@@ -12,54 +14,63 @@ public class LoginPage_POM extends BaseClass
 	public WebDriver driver;
 	public WebElement element;
 		
-	By username=By.cssSelector(".form-control#UserId");
-	By password=By.cssSelector(".form-control#Password");
-	By loginButton=By.cssSelector(".btn.t21-btn-primary");
-	By passwordErrorMessage=By.xpath(".//*[@id='login_panel']/form/div[3]/span");	
-	By useridValidationMessage=By.cssSelector(".text-danger#UserId-error");
-	By passwordValidationMessage=By.cssSelector(".text-danger#Password-error");
+	@FindBy(css=".form-control#UserId")
+	WebElement username;
 	
-	public WebElement login_username(WebDriver driver)
-	{
-		element=driver.findElement(username);
-		return element;
-	}
-	public WebElement login_password(WebDriver driver)
-	{
-		element= driver.findElement(password);
-
-		return element;
-	}
-	public WebElement login_BTN(WebDriver driver)
-	{
-
-		element = driver.findElement(loginButton);
-
-		return element;
-	}
-	public WebElement passworderrorMessageArea(WebDriver driver){
-		
-		element = driver.findElement(passwordErrorMessage);
-		
-		return element;
-	}
-	public WebElement userIDValidationMessage(WebDriver driver){
-		
-		element = driver.findElement(useridValidationMessage);
-		
-		return element;
+	@FindBy (css=".form-control#Password")
+	WebElement password;
+	
+	@FindBy (css=".btn.t21-btn-primary")
+	WebElement loginButton;
+	
+	@FindBy (xpath=".//*[@id='login_panel']/form/div[3]/span")
+	WebElement passwordErrorMessage;
+	
+	@FindBy (css=".text-danger#UserId-error")
+	WebElement useridValidationMessage;	
+	
+	@FindBy (css=".text-danger#Password-error")
+	WebElement passwordValidationMessage;	
+	
+	public LoginPage_POM(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
 	}
 	
-	public WebElement passwordValidationMessage(WebDriver driver){
-		
-		element = driver.findElement(passwordValidationMessage);
-		
-		return element;
+	
+	public WebElement getUsername()
+	{
+		return username;
 	}
 	
+	public WebElement getpassword()
+	{
+		return password;
+	}
+	
+	public WebElement getLogin_button()
+	{
+		return loginButton;
+	}
+	
+	public WebElement getPasswordErrorMessage()
+	{
+		return passwordErrorMessage;
+	}
+	
+	public WebElement getUserIDValidationMessage()
+	{
+		return useridValidationMessage;
+	}
+	
+	public WebElement getPasswordValidationMessage()
+	{
+		return passwordValidationMessage;
+	}
+		
 	public boolean verifyPasswordValidationMessage(WebDriver driver){
 		
-		element=passwordValidationMessage(driver);
+		element=getPasswordValidationMessage();
 		String errorMessage = element.getText();		
 		if(errorMessage.contains(ErrorMessages.messagewithoutPassword))
 		{
@@ -75,7 +86,7 @@ public class LoginPage_POM extends BaseClass
 	
 	public boolean verifyUserIDValidationMessage(WebDriver driver){
 		
-		element=userIDValidationMessage(driver);
+		element=getUserIDValidationMessage();
 		String errorMessage = element.getText();		
 		if(errorMessage.contains(ErrorMessages.messagewithoutUsername))
 		{
@@ -91,8 +102,7 @@ public class LoginPage_POM extends BaseClass
 	
 	public boolean verifyPasswordErrorMessage(WebDriver driver)
 	{
-		//element = driver.findElement(passwordErrorMessage);
-		element=passworderrorMessageArea(driver);
+		element=getPasswordErrorMessage();
 		String errorMessage = element.getText();		
 		if(errorMessage.contains(ErrorMessages.passworderrormessages))
 		{
@@ -106,6 +116,12 @@ public class LoginPage_POM extends BaseClass
 				
 	}
 
-	
+	public void loginFunction(){		
+		getUsername().sendKeys(adminUsername);
+		getLogin_button().click();
+		getpassword().sendKeys(adminPassword);
+		getLogin_button().click();
+		sleep(2);
+	}
 
 }

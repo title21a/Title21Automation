@@ -32,12 +32,15 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 import org.testng.asserts.SoftAssert;
+import org.title21.POM.LoginPage_POM;
 import org.title21.reporting.ExtentManager;
 
 //import com.framework.selenium.BaseClass;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
+
+import org.title21.POM.LogoutPage_POM;
 
 public class BaseClass {
 
@@ -47,11 +50,15 @@ public class BaseClass {
 	protected String filePath;
 	protected String data[][];
 	protected WebDriverWait waitDriver = null;
+	LoginPage_POM login;
+	LogoutPage_POM logout;
 	
 	public String excelFile="";
 	public String sheetName="";
 	public static String browser="";
 	public static String baseUrl="";
+	public static String adminUsername="";
+	public static String adminPassword="";
 	static String imagesDirectory = "";
 
 	@BeforeMethod
@@ -81,19 +88,14 @@ public class BaseClass {
 		
 		Properties p=new Properties();
 		FileInputStream readconfig=new FileInputStream(configFile);
-		p.load(readconfig);
+		p.load(readconfig);		
 		
-		//initializing variables
-		/*		
-		excelFile = excelFilePath;
-		sheetName = sheetName;
-		browser=browser;
-		baseUrl=baseUrl;
-		*/
 		browser=p.getProperty("browser");
 		baseUrl=p.getProperty("baseUrl");
 		excelFile=p.getProperty("excelFilePath");
 		sheetName=p.getProperty("sheetName");
+		adminUsername=p.getProperty("adminUsername");
+		adminPassword=p.getProperty("adminPassword");
 		
 		String workingDir = System.getProperty("user.dir") + "\\extentReports";
 		Calendar calander = Calendar.getInstance();
@@ -129,6 +131,7 @@ public class BaseClass {
 			System.out.println("Failed to create directory.");
 		}
 	}
+	
 
 	public static String captureScreenShot(WebDriver driver, String screenshotName) {
 		try {
@@ -265,4 +268,21 @@ public class BaseClass {
 			e.printStackTrace();
 		}
 	}
+	
+	public void loginFunction(WebDriver driver){		
+		login=new LoginPage_POM(driver);
+		login.getUsername().sendKeys(adminUsername);
+		login.getLogin_button().click();
+		login.getpassword().sendKeys(adminPassword);
+		login.getLogin_button().click();
+		sleep(2);
+	}
+	
+	/*public void logoutFunction(WebDriver driver){			
+		logout.administratorDropDown(driver).click();
+		test.log(LogStatus.PASS, "Clicked on Administrator dropdown after sucessfully login.");
+		logout.logoutLink(driver).click();
+		test.log(LogStatus.PASS, "Clicked on logout link");
+	}*/
+	
 }
