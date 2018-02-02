@@ -9,10 +9,12 @@ import org.apache.poi.hssf.usermodel.HSSFHyperlink;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.FillPatternType;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.xssf.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFHyperlink;
 
+import java.awt.Color;
 import java.io.*;
 import java.util.Calendar;
 
@@ -361,7 +363,12 @@ public class Xls_Reader {
 			
 		XSSFCellStyle style = workbook.createCellStyle();
 		style.setFillForegroundColor(HSSFColor.GREY_40_PERCENT.index);
+<<<<<<< HEAD
 	//	style.setFillPattern(HSSFCellStyle.SOLID_FOREGROUND);
+=======
+		
+		style.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+>>>>>>> branch 'master' of https://github.com/Title21user1/Title21Automation.git
 		
 		sheet=workbook.getSheetAt(index);
 		
@@ -404,7 +411,11 @@ public class Xls_Reader {
 		XSSFCellStyle style = workbook.createCellStyle();
 		style.setFillForegroundColor(HSSFColor.GREY_40_PERCENT.index);
 		XSSFCreationHelper createHelper = workbook.getCreationHelper();
+<<<<<<< HEAD
 //		style.setFillPattern(HSSFCellStyle.NO_FILL);
+=======
+		style.setFillPattern(FillPatternType.NO_FILL);
+>>>>>>> branch 'master' of https://github.com/Title21user1/Title21Automation.git
 			    
 	
 		for(int i =0;i<getRowCount(sheetName);i++){
