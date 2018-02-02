@@ -1,4 +1,4 @@
-package org.title21.ExcelUtils;
+/*package org.title21.ExcelUtils;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -261,7 +261,7 @@ public class ReadExcel {
 		//r1.DeleteInfile("TestCase", 1, 20, "./src/testData/BalSRSheet.xlsx");
 	}
 		//JST a EXample
-		/*try {
+		try {
 			//demo = [LIST OF STRING that to be WRITen in File ];
 			ReadExcel r1 = new ReadExcel("C:\\WORKBOOK.xlsx");
 			for(int i=0;i<demo.length;i++){
@@ -284,8 +284,9 @@ public class ReadExcel {
 		}
 		
 			
-		}*/
+		}
 	}
 
 	
 	
+*/

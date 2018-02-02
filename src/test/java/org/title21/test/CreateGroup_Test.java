@@ -2,6 +2,8 @@ package org.title21.test;
 
 import java.util.List;
 
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -14,6 +16,8 @@ import org.title21.POM.LogoutPage_POM;
 import org.title21.utility.BaseClass;
 
 import com.relevantcodes.extentreports.LogStatus;
+
+import net.sourceforge.htmlunit.corejs.javascript.serialize.ScriptableOutputStream;
 
 public class CreateGroup_Test extends BaseClass {
 
@@ -33,7 +37,7 @@ public class CreateGroup_Test extends BaseClass {
 		className = this.getClass().getName();
 		createDirectory(className);
 		//Call Login keyword
-		test = extent.startTest(data[0][2]);
+		test = extent.startTest("LoginFunction");
 		login.login_username(driver).sendKeys(data[0][0]);
 		test.log(LogStatus.PASS, "Username Entered");
 		login.login_BTN(driver).click();
@@ -44,6 +48,7 @@ public class CreateGroup_Test extends BaseClass {
 		login.login_BTN(driver).click();
 		test.log(LogStatus.PASS, "Clicked on Login button."+
 		test.addScreenCapture(captureScreenShot(driver, "View after Loggedin.")));	
+		extent.endTest(test);
 	}
 	
 	@Test(testName = "CreateGroup_admin", groups = "CreateGroup", priority = 0)
@@ -52,6 +57,8 @@ public class CreateGroup_Test extends BaseClass {
 		BaseClass.getAdministrationPage();
 		
 		test = extent.startTest("CreateGroup_admin");
+		test.addScreenCapture(captureScreenShot(driver, "AfterEnteringProperUsername"));
+		
 		
 		String GroupsTab = adminCreateGroup.groupsTab(driver).getText();
 		
@@ -59,11 +66,38 @@ public class CreateGroup_Test extends BaseClass {
 		{
 			adminCreateGroup.groupsTab(driver).click();
 			test.log(LogStatus.PASS, "Successfully click on 'Groups tab");
-			adminCreateGroup.addGroupAddButton(driver).click();
+			adminCreateGroup.groupAddNewLink(driver).click();
 			test.log(LogStatus.PASS, "Successfully click on 'Add New' link.");
-			adminCreateGroup.switchToModalDialog(driver);
 			adminCreateGroup.verifyAddGroupPopUp(driver);
 			test.log(LogStatus.PASS, "Verify 'Add Group' pop-up.");
+			test.addScreenCapture(captureScreenShot(driver, "AfterEnteringProperUsername"));
+			
+			sleep(2);
+			
+			adminCreateGroup.addGroupCancelButton(driver).click();
+			test.log(LogStatus.PASS, "Successfully click on 'Cancel' button");
+			
+			sleep(2);
+			
+			String AddNewTest = adminCreateGroup.groupAddNewLink(driver).getText();
+			
+			if(AddNewTest.contains("Add New")) {
+				
+				test.log(LogStatus.PASS, "Successfully navigate on 'Administration' page");
+				
+			}else {
+				
+				test.log(LogStatus.FAIL, "Unable to navigate on 'Administration' page after cancel pop-up.");
+			}
+		//	test.addScreenCapture(captureScreenShot(driver, "AfterEnteringProperUsername"));
+			
+			adminCreateGroup.groupAddNewLink(driver).click();
+			test.log(LogStatus.PASS, "Successfully click on 'Add New' link.");
+			
+			adminCreateGroup.verifyAddGroupPopUp(driver);
+			test.log(LogStatus.PASS, "Verify 'Add Group' pop-up.");
+		//	test.addScreenCapture(captureScreenShot(driver, "AfterEnteringProperUsername"));
+			
 			adminCreateGroup.groupLocationDropDownClick(driver).click();
 			
 			//Select location
@@ -82,26 +116,62 @@ public class CreateGroup_Test extends BaseClass {
 			//provide group name 
 			adminCreateGroup.addGroupTextBox(driver).sendKeys("Test1234");
 			
-			String GroupName = adminCreateGroup.addGroupTextBox(driver).getText();
-			
-			if(GroupName.contains("Test1234"))
+			//String GroupName = adminCreateGroup.addGroupTextBox(driver).getText();
+		//	test.addScreenCapture(captureScreenShot(driver, "AfterEnteringProperUsername"));
+			/*if(GroupName.contains("Test1234"))
 			{
 				test.log(LogStatus.PASS, "Successfully set 'Test1234' group.");
 			}else{
 				test.log(LogStatus.FAIL, "Unable to set 'Test1234' group.");
+			}*/
+			
+			//adminCreateGroup.acceptToAddGroup(driver);
+			
+			adminCreateGroup.addGroupAddButton(driver).click();
+			
+			
+			if(adminCreateGroup.verifyAlerPopUp(driver)) 
+			{
+				adminCreateGroup.alerCloseButton(driver).click();
+				test.log(LogStatus.PASS, "Successfully close alert PopUp.");
+				
+			}else {
+				test.log(LogStatus.FAIL, "Unable to close alert PopUp.");
 			}
 			
-			adminCreateGroup.acceptToAddGroup(driver);
+			/*Alert alert= driver.switchTo().alert();
+			String alertMessg=driver.switchTo().alert().getText();
+			System.out.println(alertMessg);
+			sleep(2);
+			alert.accept();*/
 			
 			
 			if(adminCreateGroup.groupFilterResult(driver) != null)
 			{
 				adminCreateGroup.groupFilterResult(driver).click();
-				adminCreateGroup.groupFilterResult(driver).sendKeys("Test1234");
+				adminCreateGroup.groupFilterResult(driver).sendKeys("Test");
+				adminCreateGroup.groupFilterResutGoButton(driver).click();
+			//	adminCreateGroup.groupFilterResutGoButton(driver).click();
 				
-				List<WebElement> allGroups = (List<WebElement>) adminCreateGroup.listOfGroups(driver);
+				//List<WebElement> allGroups = (List<WebElement>) adminCreateGroup.listOfGroups(driver);
 
-				for ( WebElement Group: allGroups) 
+				//String allGroupList = adminCreateGroup.listOfGroups(driver).getTagName();
+				String allGroupList = adminCreateGroup.listOfGroups(driver).getText();
+				
+				List<WebElement> allGrouplist2 = driver.findElements(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr/td"));
+				System.out.println(allGrouplist2);
+				
+				if(allGroupList.contains("Test1234")) {
+					
+					test.log(LogStatus.PASS, "Successfully group is created.");
+					
+				}else {
+					test.log(LogStatus.FAIL, "Successfully group is created.");
+				}
+				
+				
+				
+				/*for ( WebElement Group: allGroups) 
 				{ 
 			        if ( Group.getText().contains("Text1234") ) {
 			        	group= true;
@@ -113,7 +183,7 @@ public class CreateGroup_Test extends BaseClass {
 					test.log(LogStatus.PASS, "Successfully group is created.");
 		        }else{
 		        	test.log(LogStatus.FAIL, "Successfully group is created.");
-		        }
+		        }*/
 			}
 			else
 			{
@@ -125,7 +195,7 @@ public class CreateGroup_Test extends BaseClass {
 			test.log(LogStatus.FAIL, "Unable to find 'Groups' tab");
 			
 		}
-		
+		extent.endTest(test);
 	}
 	
 	@AfterClass

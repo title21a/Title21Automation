@@ -61,6 +61,7 @@ public class AdministratonPage_Test extends BaseClass {
 		{
 			administrationPage.administratorDropDown(driver).click();
 			test.log(LogStatus.PASS, "Successfully click on 'administrator");
+			
 			administrationPage.administrationLink(driver).click();
 			test.log(LogStatus.PASS, "Successfully click on 'administration' link.");
 			
@@ -69,7 +70,7 @@ public class AdministratonPage_Test extends BaseClass {
 			}else {
 				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
 			}
-			
+			test.addScreenCapture(captureScreenShot(driver, "AfterEnteringProperUsername"));
 		}else{
 			
 			test.log(LogStatus.FAIL, "Unable to find 'Groups' tab");
