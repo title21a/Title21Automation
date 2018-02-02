@@ -3,24 +3,26 @@ package org.title21.POM;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
 
 public class AdministrationCreateNewGroup_POM
 {
 public WebDriver driver;
 public WebElement element;
 
- By groupslink=By.xpath("//a[contains(@href,'GetGroupList')]");
- By addnewlink=By.xpath("//a[contains(@href,'AddUserGroup')]");
- By addgroupheaderlable=By.xpath("//*[text()='Add Group']");
- By grouplocationdropdownclick=By.xpath("//select[@class='form-control']");
- By grouplocationdropdownvalue=By.xpath("//select[@class='form-control valid']/option");
- By addgrouptextbox=By.cssSelector("#Group_Groups");
- By addgroupaddbutton=By.cssSelector(".btn.t21-btn-primary.t21-ajax-submit-button");
- By addgroupcancelbutton=By.cssSelector(".btn.t21-btn-default.pull-left");
- By groupfilterresult=By.cssSelector(".form-control.t21-placeholder");
- By groupfilterresutgobutton=By.xpath("//button[@type='submit'][@tabindex='1']");
- By nogroupfoundresulttext=By.xpath("//*[text()='No group found']");
- By listOfGroups=By.xpath("//tbody[@class='t21-js-clickable-rows']/tr/td[1]");
+@FindBy(xpath="//a[contains(@href,'GetGroupList')]")
+WebElement groupslink=By.xpath("//a[contains(@href,'GetGroupList')]");
+WebElement addnewlink=By.xpath("//a[contains(@href,'AddUserGroup')]");
+WebElement addgroupheaderlable=By.xpath("//*[text()='Add Group']");
+WebElement grouplocationdropdownclick=By.xpath("//select[@class='form-control']");
+WebElement grouplocationdropdownvalue=By.xpath("//select[@class='form-control valid']/option");
+WebElement addgrouptextbox=By.cssSelector("#Group_Groups");
+WebElement addgroupaddbutton=By.cssSelector(".btn.t21-btn-primary.t21-ajax-submit-button");
+WebElement addgroupcancelbutton=By.cssSelector(".btn.t21-btn-default.pull-left");
+WebElement groupfilterresult=By.cssSelector(".form-control.t21-placeholder");
+WebElement groupfilterresutgobutton=By.xpath("//button[@type='submit'][@tabindex='1']");
+WebElement nogroupfoundresulttext=By.xpath("//*[text()='No group found']");
+WebElement listOfGroups=By.xpath("//tbody[@class='t21-js-clickable-rows']/tr/td[1]");
  
  public WebElement groupsTab(WebDriver driver)
  {
