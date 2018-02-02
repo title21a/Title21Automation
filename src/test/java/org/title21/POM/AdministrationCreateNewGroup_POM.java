@@ -1,6 +1,5 @@
 package org.title21.POM;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -13,45 +12,21 @@ public WebElement element;
  By groupslink=By.xpath("//a[contains(@href,'GetGroupList')]");
  By addnewlink=By.xpath("//a[contains(@href,'AddUserGroup')]");
  By addgroupheaderlable=By.xpath("//*[text()='Add Group']");
- By grouplocationdropdownclick=By.xpath("//select[@name='Location']");
+ By grouplocationdropdownclick=By.xpath("//select[@class='form-control']");
  By grouplocationdropdownvalue=By.xpath("//select[@class='form-control valid']/option");
  By addgrouptextbox=By.cssSelector("#Group_Groups");
  By addgroupaddbutton=By.cssSelector(".btn.t21-btn-primary.t21-ajax-submit-button");
  By addgroupcancelbutton=By.cssSelector(".btn.t21-btn-default.pull-left");
- By alertMsgPopUp=By.xpath("//*[text()='Message']");
- By alerCloseButton=By.xpath("//button[text()='Close']");
  By groupfilterresult=By.cssSelector(".form-control.t21-placeholder");
  By groupfilterresutgobutton=By.xpath("//button[@type='submit'][@tabindex='1']");
  By nogroupfoundresulttext=By.xpath("//*[text()='No group found']");
- By listOfGroups=By.xpath("//tbody[@class='t21-js-clickable-rows']/tr/td");
- By alreadyGroupCreatedErrorMsg=By.cssSelector("#Group_Groups-error");
+ By listOfGroups=By.xpath("//tbody[@class='t21-js-clickable-rows']/tr/td[1]");
  
  public WebElement groupsTab(WebDriver driver)
  {
 	 element=driver.findElement(groupslink);
 	 return element;
  }
- 
- public WebElement alreadyGroupCreatedErrorMsg(WebDriver driver)
- {
-	 element=driver.findElement(alreadyGroupCreatedErrorMsg);
-	 return element;
- }
- 
- public WebElement alertMsgPopUp(WebDriver driver)
- {
-	 element=driver.findElement(alertMsgPopUp);
-	 return element;
- }
- 
- public WebElement alerCloseButton(WebDriver driver)
- {
-	 element=driver.findElement(alerCloseButton);
-	 return element;
- }
-
- 
- 
  public WebElement groupAddNewLink(WebDriver driver)
  {
 	 element=driver.findElement(addnewlink);
@@ -151,25 +126,9 @@ public WebElement element;
 		
 	}
 
-	public boolean verifyAlerPopUp(WebDriver driver){
-		
-		String alertHeaderText = alertMsgPopUp(driver).getText();
-		
-		if(alertHeaderText.equalsIgnoreCase("Message"))
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-		
-	}
-	
-	
 	public void switchToModalDialog(WebDriver driver){
 		 
-		
+		 driver.switchTo().alert();
 	 }
 	
 	public void acceptToAddGroup(WebDriver driver){
@@ -180,11 +139,6 @@ public WebElement element;
 	public void cancelToAddGroup(WebDriver driver){
 		 
 		 driver.switchTo().alert().dismiss();
-	 }
-	
-	public void aletPopUpVerification(WebDriver driver){
-		 
-		
 	 }
 	
 }

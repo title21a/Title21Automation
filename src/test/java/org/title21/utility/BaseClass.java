@@ -212,11 +212,11 @@ public class BaseClass {
 		AdministrationPage_POM administrationPage = new AdministrationPage_POM();
 		test = extent.startTest("NavigateToAdministrationPage");
 		
-		String administratorTab = administrationPage.administratorDropDown(driver).getText();
+		String administratorTab = administrationPage.administratorDropDown().getText();
 		
 		if(administratorTab.contains("Administrator"))
 		{
-			administrationPage.administratorDropDown(driver).click();
+			administrationPage.administratorDropDown().click();
 			test.log(LogStatus.PASS, "Successfully click on 'administrator");
 			administrationPage.administrationLink(driver).click();
 			test.log(LogStatus.PASS, "Successfully click on 'administration' link.");
