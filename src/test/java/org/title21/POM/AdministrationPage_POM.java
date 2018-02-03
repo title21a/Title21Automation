@@ -32,12 +32,12 @@ public AdministrationPage_POM(WebDriver driver) {
 	 return administratordropdown;
 	// return element;
  }
- public WebElement administrationLink(WebDriver driver)
+ public WebElement administrationLink()
  {
 	 return administrationlink;
 	 //return element;
  }
- public WebElement administrationText(WebDriver driver)
+ public WebElement administrationText()
  {
 	 return administrationtext; 
 	 //return element;
@@ -49,9 +49,9 @@ public AdministrationPage_POM(WebDriver driver) {
 	 * @param WebDriver obj
 	 */
 	
-	public boolean verifyAdministrationPagePrescence(WebDriver driver){
+	public boolean verifyAdministrationPagePrescence(){
 		
-		String administrationText = administrationText(driver).getText();
+		String administrationText = administrationText().getText();
 		
 		if(administrationText.equalsIgnoreCase("Administration"))
 		{

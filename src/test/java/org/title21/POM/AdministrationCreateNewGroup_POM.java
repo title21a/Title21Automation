@@ -4,92 +4,119 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class AdministrationCreateNewGroup_POM
 {
 public WebDriver driver;
 public WebElement element;
 
+public AdministrationCreateNewGroup_POM(WebDriver driver) {
+	this.driver = driver;
+	PageFactory.initElements(driver, this);
+}
 @FindBy(xpath="//a[contains(@href,'GetGroupList')]")
-WebElement groupslink=By.xpath("//a[contains(@href,'GetGroupList')]");
-WebElement addnewlink=By.xpath("//a[contains(@href,'AddUserGroup')]");
-WebElement addgroupheaderlable=By.xpath("//*[text()='Add Group']");
-WebElement grouplocationdropdownclick=By.xpath("//select[@class='form-control']");
-WebElement grouplocationdropdownvalue=By.xpath("//select[@class='form-control valid']/option");
-WebElement addgrouptextbox=By.cssSelector("#Group_Groups");
-WebElement addgroupaddbutton=By.cssSelector(".btn.t21-btn-primary.t21-ajax-submit-button");
-WebElement addgroupcancelbutton=By.cssSelector(".btn.t21-btn-default.pull-left");
-WebElement groupfilterresult=By.cssSelector(".form-control.t21-placeholder");
-WebElement groupfilterresutgobutton=By.xpath("//button[@type='submit'][@tabindex='1']");
-WebElement nogroupfoundresulttext=By.xpath("//*[text()='No group found']");
-WebElement listOfGroups=By.xpath("//tbody[@class='t21-js-clickable-rows']/tr/td[1]");
+WebElement groupslink;
+
+@FindBy(xpath="//a[contains(@href,'GetGroupList')]")
+WebElement addnewlink;
+
+@FindBy(xpath="//*[text()='Add Group']")
+WebElement addgroupheaderlable;
+
+@FindBy(xpath="//select[@class='form-control']")
+WebElement grouplocationdropdownclick;
+
+@FindBy(xpath="//select[@class='form-control valid']/option")
+WebElement grouplocationdropdownvalue;
+
+@FindBy(css="#Group_Groups")
+WebElement addgrouptextbox;
+
+@FindBy(css=".btn.t21-btn-primary.t21-ajax-submit-button")
+WebElement addgroupaddbutton;
+
+@FindBy(css=".btn.t21-btn-default.pull-left")
+WebElement addgroupcancelbutton;
+
+@FindBy(css=".form-control.t21-placeholder")
+WebElement groupfilterresult;
+
+@FindBy(xpath="//button[@type='submit'][@tabindex='1']")
+WebElement groupfilterresutgobutton;
+
+@FindBy(xpath="//*[text()='No group found']")
+WebElement nogroupfoundresulttext;
+
+@FindBy(xpath="//tbody[@class='t21-js-clickable-rows']/tr/td[1]")
+WebElement listOfGroups;
  
- public WebElement groupsTab(WebDriver driver)
+ public WebElement groupsTab()
  {
-	 element=driver.findElement(groupslink);
-	 return element;
+	 //element=driver.findElement(groupslink);
+	 return groupslink;
  }
- public WebElement groupAddNewLink(WebDriver driver)
+ public WebElement groupAddNewLink()
  {
-	 element=driver.findElement(addnewlink);
-	 return element;
+	 //element=driver.findElement(addnewlink);
+	 return addnewlink;
  }
- public WebElement addGroupHeaderlable(WebDriver driver)
+ public WebElement addGroupHeaderlable()
  {
-	 element=driver.findElement(addgroupheaderlable); 
-	 return element;
- }
- 
- public WebElement groupLocationDropDownClick(WebDriver driver)
- {
-	 element=driver.findElement(grouplocationdropdownclick); 
-	 return element;
- }
- 
- public WebElement groupLocationDropDownValue(WebDriver driver)
- {
-	 element=driver.findElement(grouplocationdropdownvalue); 
-	 return element;
- }
- 
- public WebElement addGroupTextBox(WebDriver driver)
- {
-	 element=driver.findElement(addgrouptextbox); 
-	 return element;
- }
- 
- public WebElement addGroupAddButton(WebDriver driver)
- {
-	 element=driver.findElement(addgroupaddbutton); 
-	 return element;
+	 //element=driver.findElement(addgroupheaderlable); 
+	 return addgroupheaderlable;
  }
  
- public WebElement addGroupCancelButton(WebDriver driver)
+ public WebElement groupLocationDropDownClick()
  {
-	 element=driver.findElement(addgroupcancelbutton); 
-	 return element;
+	// element=driver.findElement(grouplocationdropdownclick); 
+	 return grouplocationdropdownclick;
  }
  
- public WebElement groupFilterResult(WebDriver driver)
+ public WebElement groupLocationDropDownValue()
  {
-	 element=driver.findElement(groupfilterresult); 
-	 return element;
+	 //element=driver.findElement(grouplocationdropdownvalue); 
+	 return grouplocationdropdownvalue;
  }
  
- public WebElement groupFilterResutGoButton(WebDriver driver)
+ public WebElement addGroupTextBox()
  {
-	 element=driver.findElement(groupfilterresutgobutton); 
-	 return element;
+	 //element=driver.findElement(addgrouptextbox); 
+	 return addgrouptextbox;
  }
  
- public WebElement noGroupFoundResultText(WebDriver driver){
-	 element=driver.findElement(nogroupfoundresulttext);
-	 return element;
+ public WebElement addGroupAddButton()
+ {
+	 //element=driver.findElement(addgroupaddbutton); 
+	 return addgroupaddbutton;
  }
  
- public WebElement listOfGroups(WebDriver driver){
-	 element=driver.findElement(listOfGroups);
-	 return element;
+ public WebElement addGroupCancelButton()
+ {
+	 //element=driver.findElement(addgroupcancelbutton); 
+	 return addgroupcancelbutton;
+ }
+ 
+ public WebElement groupFilterResult()
+ {
+	 //element=driver.findElement(groupfilterresult); 
+	 return groupfilterresult;
+ }
+ 
+ public WebElement groupFilterResutGoButton()
+ {
+	 //element=driver.findElement(groupfilterresutgobutton); 
+	 return groupfilterresutgobutton;
+ }
+ 
+ public WebElement noGroupFoundResultText(){
+	 //element=driver.findElement(nogroupfoundresulttext);
+	 return nogroupfoundresulttext;
+ }
+ 
+ public WebElement listOfGroups(){
+	 //element=driver.findElement(listOfGroups);
+	 return listOfGroups;
  }
  
  /*
@@ -100,7 +127,7 @@ WebElement listOfGroups=By.xpath("//tbody[@class='t21-js-clickable-rows']/tr/td[
 	
 	public boolean verifyAddGroupPopUp(WebDriver driver){
 		
-		String AddGroupPopUpHeaderText = addGroupHeaderlable(driver).getText();
+		String AddGroupPopUpHeaderText = addGroupHeaderlable().getText();
 		
 		if(AddGroupPopUpHeaderText.equalsIgnoreCase("Add Group"))
 		{
@@ -115,7 +142,7 @@ WebElement listOfGroups=By.xpath("//tbody[@class='t21-js-clickable-rows']/tr/td[
 	
 	public boolean verifyNoGroupFoundText(WebDriver driver){
 		
-		String NoGroupFoundResultText = noGroupFoundResultText(driver).getText();
+		String NoGroupFoundResultText = noGroupFoundResultText().getText();
 		
 		if(NoGroupFoundResultText.equalsIgnoreCase("No group found"))
 		{

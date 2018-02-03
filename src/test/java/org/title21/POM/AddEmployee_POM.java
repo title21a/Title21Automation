@@ -3,232 +3,315 @@ package org.title21.POM;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class AddEmployee_POM {
 	
 	public WebDriver driver;
 	public WebElement element;
-		
-	By administrator=By.cssSelector(".dropdown-toggle.t21-nav-bar-dropdown");
-	By administration=By.xpath("//*[@id='Administration']/a");
-	By employees=By.cssSelector(".selected.t21-padding-5.set-item");
-	By addNew=By.cssSelector(".fa.fa-plus-circle.t21-padding-right-5");
-	By locationTab=By.cssSelector(".form-control#GridLocation");
-	By searchBox=By.cssSelector(".form-control.t21-placeholder");
-	By goButton=By.xpath("//button[contains(@type,'submit') and contains(@tabindex,'1')]");
-	By crossButton=By.xpath("//button[contains(@name,'clear')]");
-    By generalTab=By.xpath("//a[contains(@href,'#tab1')]");
-    By locationEmployee=By.xpath("//select[contains(@name,'Employee.Location')]");
-    By employeeFullName=By.cssSelector(".form-control#Employee_FullName");
-    By employeeID=By.cssSelector(".form-control#Employee_EmployeeID");
-    By supervisorDropdown=By.xpath("//select[contains(@name,'Employee.SupervisorID')]");
-    By businessUnit=By.xpath("//select[contains(@name,'Employee.DefaultFirm')]");
-    By department=By.xpath("//select[contains(@name,'Employee.Department')]");
-    By address=By.cssSelector(".form-control#Employee_Address");
-    By city=By.cssSelector(".form-control#Employee_City");
-    By state=By.cssSelector(".form-control#Employee_State");
-    By postal_Code=By.cssSelector(".form-control#Employee_Postal_Code");
-    By country=By.cssSelector(".form-control#Employee_Country");
-    By phone=By.cssSelector(".form-control#Employee_Phone");
-    By email=By.cssSelector(".form-control#Employee_Email");
-    By cancelButton=By.xpath("//button[contains(@class,'btn t21-btn-default pull-left')]");
-    By addButton=By.xpath("//button[contains(@class,'btn t21-btn-primary t21-ajax-submit-button')]");
-    By jobCodesTab=By.xpath("//a[contains(@href,'#tab2')]");
-    By jobCodesDropdown=By.xpath("//a[contains(text(),'Human Resources Clerk')]");
-    By otherTab=By.xpath("//a[contains(@href,'#tab3')]");
-    By trainingLink=By.xpath("//*[@class='collapsible-icon t21-padding-right-5']");
-    By uponSaveCheckbox=By.xpath("//*[@id='IsTraining']");
+	public AddEmployee_POM(WebDriver driver) {
+		this.driver = driver;
+		PageFactory.initElements(driver, this);
+	}
+
+	@FindBy(css=".dropdown-toggle.t21-nav-bar-dropdown")
+	WebElement	administrator;
+	
+	@FindBy(xpath="//*[@id='Administration']/a")
+	WebElement administration;
+
+	@FindBy(css=".selected.t21-padding-5.set-item")
+	WebElement employees;
+
+	@FindBy(css=".fa.fa-plus-circle.t21-padding-right-5")
+	WebElement addNew;
+
+	@FindBy(css=".form-control#GridLocation")
+	WebElement locationTab;
+
+	@FindBy(css=".form-control.t21-placeholder")
+	WebElement searchBox;
+
+	@FindBy(xpath="//button[contains(@type,'submit') and contains(@tabindex,'1')]")
+	WebElement goButton;
+
+	@FindBy(xpath="//button[contains(@name,'clear')]")
+	WebElement crossButton;
+
+	@FindBy(xpath="//a[contains(@href,'#tab1')]")
+	WebElement generalTab;
+
+	@FindBy(xpath="//select[contains(@name,'Employee.Location')]")
+	WebElement locationEmployee;
+
+	@FindBy(css=".form-control#Employee_FullName")
+	WebElement employeeFullName;
+
+	@FindBy(css=".form-control#Employee_EmployeeID")
+	WebElement employeeID;
+
+	@FindBy(xpath="//select[contains(@name,'Employee.SupervisorID')]")
+	WebElement supervisorDropdown;
+
+	@FindBy(xpath="//select[contains(@name,'Employee.DefaultFirm')]")
+	WebElement businessUnit;//=By.xpath("//select[contains(@name,'Employee.DefaultFirm')]");
+
+	@FindBy(xpath="//select[contains(@name,'Employee.Department')]")
+	WebElement department;//=By.xpath("//select[contains(@name,'Employee.Department')]");
+
+	@FindBy(css=".form-control#Employee_Address")
+	WebElement address;//=By.cssSelector(".form-control#Employee_Address");
+
+	@FindBy(css=".form-control#Employee_City")
+	WebElement city;//=By.cssSelector(".form-control#Employee_City");
+
+	@FindBy(css=".form-control#Employee_State")
+	WebElement state;//=By.cssSelector(".form-control#Employee_State");
+
+	@FindBy(css=".form-control#Employee_Postal_Code")
+	WebElement postal_Code;//=By.cssSelector(".form-control#Employee_Postal_Code");
+
+	@FindBy(css=".form-control#Employee_Country")
+	WebElement country;//=By.cssSelector(".form-control#Employee_Country");
+
+	@FindBy(css=".form-control#Employee_Phone")
+	WebElement phone;//=By.cssSelector(".form-control#Employee_Phone");
+
+	@FindBy(css=".form-control#Employee_Email")
+	WebElement email;//=By.cssSelector(".form-control#Employee_Email");
+
+	@FindBy(xpath="//button[contains(@class,'btn t21-btn-default pull-left')]")
+	WebElement cancelButton;//=By.xpath("//button[contains(@class,'btn t21-btn-default pull-left')]");
+
+	@FindBy(xpath="//button[contains(@class,'btn t21-btn-primary t21-ajax-submit-button')]")
+	WebElement addButton;//=By.xpath("//button[contains(@class,'btn t21-btn-primary t21-ajax-submit-button')]");
+
+	@FindBy(xpath="//a[contains(@href,'#tab2')]")
+	WebElement jobCodesTab;//=By.xpath("//a[contains(@href,'#tab2')]");
+
+	@FindBy(xpath="//a[contains(text(),'Human Resources Clerk')]")
+	WebElement jobCodesDropdown;//=By.xpath("//a[contains(text(),'Human Resources Clerk')]");
+
+	@FindBy(xpath="//a[contains(@href,'#tab3')]")
+	WebElement otherTab;//=By.xpath("//a[contains(@href,'#tab3')]");
+
+	@FindBy(xpath="//*[@class='collapsible-icon t21-padding-right-5']")
+	WebElement trainingLink;//=By.xpath("//*[@class='collapsible-icon t21-padding-right-5']");
+
+	@FindBy(xpath="//*[@id='IsTraining']")
+	WebElement uponSaveCheckbox;//=By.xpath("//*[@id='IsTraining']");
     
-    By employeeSupervisorradioBtn=By.xpath("//*[@id='collapse-1']/div/div[2]/div/label");
-    By otherSpecificSupervisorradioBtn=By.xpath("//*[@id='collapse-1']/div/div[3]/div[1]/label");
+
+	@FindBy(xpath="//*[@id='collapse-1']/div/div[2]/div/label")
+	WebElement employeeSupervisorradioBtn;//=By.xpath("//*[@id='collapse-1']/div/div[2]/div/label");
+
+	@FindBy(xpath="//*[@id='collapse-1']/div/div[3]/div[1]/label")
+	WebElement otherSpecificSupervisorradioBtn;//=By.xpath("//*[@id='collapse-1']/div/div[3]/div[1]/label");
     
-    By supervisorOtherTab=By.xpath("//*[@name='Supervisor']");
-    By sendEmailNotification=By.xpath("//*[@id='IsEmailNotificationTobeSend']");
-    By hireDate=By.xpath("//*[@id='Employee_HireDate']");
-    By employeeType=By.xpath("//*[@name='Employee.EmploymentType']");
-    By employeeForwardItemsTo=By.xpath("//*[@name='Employee.ForwardItemsTo']");
-    By employeeStatus=By.xpath("//*[@name='Employee.Status']");
-    By altEmployeeID=By.xpath("//*[@name='Employee.AltEmployeeID']");
-    By createUserID=By.xpath("//*[@id='CreateUserId']");
+
+	@FindBy(xpath="//*[@name='Supervisor']")
+	WebElement supervisorOtherTab;//=By.xpath("//*[@name='Supervisor']");
+
+	@FindBy(xpath="//*[@id='IsEmailNotificationTobeSend']")
+	WebElement sendEmailNotification;//=By.xpath("//*[@id='IsEmailNotificationTobeSend']");
+
+	@FindBy(xpath="//*[@id='Employee_HireDate']")
+	WebElement hireDate;//=By.xpath("//*[@id='Employee_HireDate']");
+
+	@FindBy(xpath="//*[@name='Employee.EmploymentType']")
+	WebElement employeeType;//=By.xpath("//*[@name='Employee.EmploymentType']");
+
+	@FindBy(xpath="//*[@name='Employee.ForwardItemsTo']")
+	WebElement employeeForwardItemsTo;//=By.xpath("//*[@name='Employee.ForwardItemsTo']");
+
+	@FindBy(xpath="//*[@name='Employee.Status']")
+	WebElement employeeStatus;//=By.xpath("//*[@name='Employee.Status']");
+
+	@FindBy(xpath="//*[@name='Employee.AltEmployeeID']")
+	WebElement altEmployeeID;//=By.xpath("//*[@name='Employee.AltEmployeeID']");
+
+	@FindBy(xpath="//*[@id='CreateUserId']")
+	WebElement createUserID;//=By.xpath();
     
     
     
     
-	public WebElement administrator_dropdown(WebDriver driver)
+	public WebElement administrator_dropdown()
 	{
-		WebElement element=driver.findElement(administrator);
+		//WebElement element=driver.findElement(administrator);
+		return administrator;
+	}
+	public WebElement administration_menue()
+	{
+		//WebElement element=driver.findElement(administration);
+		return employees;
+	}
+	public WebElement employees_menue()
+	{
+		//WebElement element=driver.findElement(employees);
 		return element;
 	}
-	public WebElement administration_menue(WebDriver driver)
+	public WebElement addNew_Employee()
 	{
-		WebElement element=driver.findElement(administration);
-		return element;
+		//WebElement element=driver.findElement(addNew);
+		return addNew;
 	}
-	public WebElement employees_menue(WebDriver driver)
+	public WebElement location_Field()
 	{
-		WebElement element=driver.findElement(employees);
-		return element;
+		//WebElement element=driver.findElement(locationTab);
+		return locationTab;
 	}
-	public WebElement addNew_Employee(WebDriver driver)
+	public WebElement searchText_Box()
 	{
-		WebElement element=driver.findElement(addNew);
-		return element;
+		//WebElement element=driver.findElement(searchBox);
+		return searchBox;
 	}
-	public WebElement location_Field(WebDriver driver)
+	public WebElement go_Button()
 	{
-		WebElement element=driver.findElement(locationTab);
-		return element;
+		//WebElement element=driver.findElement(goButton);
+		return goButton;
 	}
-	public WebElement searchText_Box(WebDriver driver)
+	public WebElement employee_DropdownTab()
 	{
-		WebElement element=driver.findElement(searchBox);
-		return element;
+		//WebElement element=driver.findElement(locationEmployee);
+		return locationEmployee;
 	}
-	public WebElement go_Button(WebDriver driver)
+	public WebElement employee_FullName()
 	{
-		WebElement element=driver.findElement(goButton);
-		return element;
+		//WebElement element=driver.findElement(locationEmployee);
+		return locationEmployee;
 	}
-	public WebElement employee_DropdownTab(WebDriver driver)
+	public WebElement supervisorDropdown_Field()
 	{
-		WebElement element=driver.findElement(locationEmployee);
-		return element;
+		//WebElement element=driver.findElement(supervisorDropdown);
+		return supervisorDropdown;
 	}
-	public WebElement employee_FullName(WebDriver driver)
+	public WebElement businessUnit_Dropdown()
 	{
-		WebElement element=driver.findElement(locationEmployee);
-		return element;
+		//WebElement element=driver.findElement(businessUnit);
+		return businessUnit;
 	}
-	public WebElement supervisorDropdown_Field(WebDriver driver)
+	public WebElement department_Dropdown()
 	{
-		WebElement element=driver.findElement(supervisorDropdown);
-		return element;
+		//WebElement element=driver.findElement(department);
+		return department;
 	}
-	public WebElement businessUnit_Dropdown(WebDriver driver)
+	public WebElement address_textbox()
 	{
-		WebElement element=driver.findElement(businessUnit);
-		return element;
+		//WebElement element=driver.findElement(address);
+		return address;
 	}
-	public WebElement department_Dropdown(WebDriver driver)
+	public WebElement employee_City()
 	{
-		WebElement element=driver.findElement(department);
-		return element;
+		//WebElement element=driver.findElement(city);
+		return city;
 	}
-	public WebElement address_textbox(WebDriver driver)
+	public WebElement employee_State()
 	{
-		WebElement element=driver.findElement(address);
-		return element;
+		//WebElement element=driver.findElement(state);
+		return state;
 	}
-	public WebElement employee_City(WebDriver driver)
+	public WebElement employee_PostalCode()
 	{
-		WebElement element=driver.findElement(city);
-		return element;
+		//WebElement element=driver.findElement(postal_Code);
+		return postal_Code;
 	}
-	public WebElement employee_State(WebDriver driver)
+	public WebElement employee_Country()
 	{
-		WebElement element=driver.findElement(state);
-		return element;
+		//WebElement element=driver.findElement(country);
+		return country;
 	}
-	public WebElement employee_PostalCode(WebDriver driver)
+	public WebElement employee_Phone()
 	{
-		WebElement element=driver.findElement(postal_Code);
-		return element;
+		//WebElement element=driver.findElement(phone);
+		return phone;
 	}
-	public WebElement employee_Country(WebDriver driver)
+	public WebElement employee_email()
 	{
-		WebElement element=driver.findElement(country);
-		return element;
+		//WebElement element=driver.findElement(email);
+		return email;
 	}
-	public WebElement employee_Phone(WebDriver driver)
+	public WebElement cancel_Btn()
 	{
-		WebElement element=driver.findElement(phone);
-		return element;
+		//WebElement element=driver.findElement(cancelButton);
+		return cancelButton;
 	}
-	public WebElement employee_email(WebDriver driver)
+	public WebElement add_Btn()
 	{
-		WebElement element=driver.findElement(email);
-		return element;
+		//WebElement element=driver.findElement(addButton);
+		return addButton;
 	}
-	public WebElement cancel_Btn(WebDriver driver)
+	public WebElement job_Codes()
 	{
-		WebElement element=driver.findElement(cancelButton);
-		return element;
+		//WebElement element=driver.findElement(jobCodesTab);
+		return jobCodesTab;
 	}
-	public WebElement add_Btn(WebDriver driver)
+	public WebElement jobCode_Dropdown1()
 	{
-		WebElement element=driver.findElement(addButton);
-		return element;
+		//WebElement element=driver.findElement(jobCodesDropdown);
+		return jobCodesDropdown;
 	}
-	public WebElement job_Codes(WebDriver driver)
+	public WebElement other_Tab()
 	{
-		WebElement element=driver.findElement(jobCodesTab);
-		return element;
+		//WebElement element=driver.findElement(otherTab);
+		return otherTab;
 	}
-	public WebElement jobCode_Dropdown1(WebDriver driver)
+	public WebElement trainingLink_Tab()
 	{
-		WebElement element=driver.findElement(jobCodesDropdown);
-		return element;
+		//WebElement element=driver.findElement(trainingLink);
+		return trainingLink;
 	}
-	public WebElement other_Tab(WebDriver driver)
+	public WebElement uponSave_Checkbox()
 	{
-		WebElement element=driver.findElement(otherTab);
-		return element;
+		//WebElement element=driver.findElement(uponSaveCheckbox);
+		return uponSaveCheckbox;
 	}
-	public WebElement trainingLink_Tab(WebDriver driver)
+	public WebElement employeeSupervisor_RadioBtn()
 	{
-		WebElement element=driver.findElement(trainingLink);
-		return element;
+		//WebElement element=driver.findElement(employeeSupervisorradioBtn);
+		return employeeSupervisorradioBtn;
 	}
-	public WebElement uponSave_Checkbox(WebDriver driver)
+	public WebElement otherSpecificSupervisor_RadioBtn()
 	{
-		WebElement element=driver.findElement(uponSaveCheckbox);
-		return element;
-	}
-	public WebElement employeeSupervisor_RadioBtn(WebDriver driver)
-	{
-		WebElement element=driver.findElement(employeeSupervisorradioBtn);
-		return element;
-	}
-	public WebElement otherSpecificSupervisor_RadioBtn(WebDriver driver)
-	{
-		WebElement element=driver.findElement(otherSpecificSupervisorradioBtn);
-		return element;
+		//WebElement element=driver.findElement(otherSpecificSupervisorradioBtn);
+		return otherSpecificSupervisorradioBtn;
 	}
 	
 	
-	public WebElement hire_Date(WebDriver driver)
+	public WebElement hire_Date()
 	{
-		WebElement element=driver.findElement(hireDate);
-		return element;
+		//WebElement element=driver.findElement(hireDate);
+		return hireDate;
 	}
-	public WebElement employee_type(WebDriver driver)
+	public WebElement employee_type()
 	{
-		WebElement element=driver.findElement(employeeType);
-		return element;
+		//WebElement element=driver.findElement(employeeType);
+		return employeeType;
 	}
-	public WebElement employee_ForwardItemsTo(WebDriver driver)
+	public WebElement employee_ForwardItemsTo()
 	{
-		WebElement element=driver.findElement(employeeForwardItemsTo);
-		return element;
+		//WebElement element=driver.findElement(employeeForwardItemsTo);
+		return employeeForwardItemsTo;
 	}
-	public WebElement employee_Status(WebDriver driver)
+	public WebElement employee_Status()
 	{
-		WebElement element=driver.findElement(employeeStatus);
-		return element;
+		//WebElement element=driver.findElement(employeeStatus);
+		return employeeStatus;
 	}
-	public WebElement alt_Employee(WebDriver driver)
+	public WebElement alt_Employee()
 	{
-		WebElement element=driver.findElement(altEmployeeID);
-		return element;
+		////WebElement element=driver.findElement(altEmployeeID);
+		return altEmployeeID;
 	}
-	public WebElement create_UserID(WebDriver driver)
+	public WebElement create_UserID()
 	{
-		WebElement element=driver.findElement(createUserID);
-		return element;
+		//WebElement element=driver.findElement(createUserID);
+		return createUserID;
 	}
-	public WebElement sendEmail_Notification(WebDriver driver)
+	public WebElement sendEmail_Notification()
 	{
-		WebElement element=driver.findElement(createUserID);
-		return element;
+		//WebElement element=driver.findElement(createUserID);
+		return sendEmailNotification;
 	}
 }

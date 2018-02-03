@@ -216,10 +216,10 @@ public class BaseClass {
 		{
 			administrationPage.administratorDropDown().click();
 			test.log(LogStatus.PASS, "Successfully click on 'administrator");
-			administrationPage.administrationLink(driver).click();
+			administrationPage.administrationLink().click();
 			test.log(LogStatus.PASS, "Successfully click on 'administration' link.");
 			
-			if(administrationPage.verifyAdministrationPagePrescence(driver)) {
+			if(administrationPage.verifyAdministrationPagePrescence()) {
 				test.log(LogStatus.PASS, "Successfully verify 'administration Page' Prescence.");
 			}else {
 				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
