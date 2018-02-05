@@ -11,7 +11,7 @@ import org.title21.validation.entities.ErrorMessages;
 
 import com.relevantcodes.extentreports.LogStatus;
 
-public class LogoutPage_POM
+public class LogoutPage_POM extends BaseClass
 {
 	public WebDriver driver;
 	public WebElement element;
@@ -22,7 +22,7 @@ public class LogoutPage_POM
 	@FindBy (xpath=".//*[@id='Logout']/a")
 	WebElement logoutlink;
 	
-	@FindBy (xpath=".//*[@id='Logout']/a")
+	@FindBy (xpath="//a[contains(@href,'Logout')]")
 	WebElement logoutbutton;
 	
 	@FindBy (css=".modal-body")
@@ -71,8 +71,11 @@ public class LogoutPage_POM
 	 
 	 public void logoutFunction(){
 		 
-		getAdmindropdown().click();		
-		getlogoutLink().click();	
+		getAdmindropdown().click();	
+		sleep(2);
+		getlogoutLink().click();
+		sleep(2);
+		getLogoutButton().click();	
 		 
 	 }
  

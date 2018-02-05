@@ -32,7 +32,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 import org.testng.asserts.SoftAssert;
+import org.title21.POM.AdministrationPage_POM;
 import org.title21.POM.LoginPage_POM;
+
 import org.title21.reporting.ExtentManager;
 
 //import com.framework.selenium.BaseClass;
@@ -44,9 +46,9 @@ import org.title21.POM.LogoutPage_POM;
 
 public class BaseClass {
 
-	protected WebDriver driver;
-	protected ExtentReports extent;
-	protected ExtentTest test;
+	protected static WebDriver driver;
+	protected static ExtentReports extent;
+	protected static ExtentTest test;
 	protected String filePath;
 	protected String data[][];
 	protected WebDriverWait waitDriver = null;
@@ -201,6 +203,36 @@ public class BaseClass {
 			driver.get(baseUrl);
 		}
 	}
+	
+	
+	public static void getAdministrationPage() {
+		
+		AdministrationPage_POM administrationPage = new AdministrationPage_POM(driver);
+		test = extent.startTest("NavigateToAdministrationPage");
+		
+		String administratorTab = administrationPage.administratorDropDown().getText();
+		
+		if(administratorTab.contains("Administrator"))
+		{
+			administrationPage.administratorDropDown().click();
+			test.log(LogStatus.PASS, "Successfully click on 'administrator");
+			administrationPage.administrationLink().click();
+			test.log(LogStatus.PASS, "Successfully click on 'administration' link.");
+			
+			if(administrationPage.verifyAdministrationPagePrescence()) {
+				test.log(LogStatus.PASS, "Successfully verify 'administration Page' Prescence.");
+			}else {
+				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
+			}
+			
+		}else{
+			
+			test.log(LogStatus.FAIL, "Unable to find 'Groups' tab");
+			
+		}
+		extent.endTest(test);
+	}
+	
 
 	public WebDriver SwitchToFrame() {
 		driver.switchTo().frame(0);
@@ -278,11 +310,13 @@ public class BaseClass {
 		sleep(2);
 	}
 	
-	/*public void logoutFunction(WebDriver driver){			
-		logout.administratorDropDown(driver).click();
-		test.log(LogStatus.PASS, "Clicked on Administrator dropdown after sucessfully login.");
-		logout.logoutLink(driver).click();
-		test.log(LogStatus.PASS, "Clicked on logout link");
-	}*/
+	public void logoutFunction(WebDriver driver){
+		logout=new LogoutPage_POM(driver);
+		logout.getAdmindropdown().click();
+		sleep(2);
+		logout.getlogoutLink().click();
+		sleep(2);
+		logout.getLogoutButton().click();		
+	}
 	
 }

@@ -21,9 +21,9 @@ public class AdministratonPage_Test extends BaseClass {
 	boolean group=false;
 	String className="";
 
-	AdministrationPage_POM administrationPage = new AdministrationPage_POM();
-	LoginPage_POM login = new LoginPage_POM();
-	public LogoutPage_POM logout = new LogoutPage_POM();
+	AdministrationPage_POM administrationPage = new AdministrationPage_POM(driver);
+	LoginPage_POM login = new LoginPage_POM(driver);
+	public LogoutPage_POM logout = new LogoutPage_POM(driver);
 
 	
 	@BeforeClass
@@ -36,14 +36,7 @@ public class AdministratonPage_Test extends BaseClass {
 		createDirectory(className);
 		//Call Login keyword
 		test = extent.startTest("LoginIntoAdministration");
-		login.login_username(driver).sendKeys(data[0][0]);
-		test.log(LogStatus.PASS, "Username Entered");
-		login.login_BTN(driver).click();
-		test.log(LogStatus.PASS, "Clicked on Login button after entering Username.");
-		
-		login.login_password(driver).sendKeys(data[1][1]);
-		test.log(LogStatus.PASS, "Correct password Entered.");
-		login.login_BTN(driver).click();
+		login.loginFunction();
 		test.log(LogStatus.PASS, "Clicked on Login button."+
 		test.addScreenCapture(captureScreenShot(driver, "View after Loggedin.")));	
 		
@@ -55,21 +48,22 @@ public class AdministratonPage_Test extends BaseClass {
 	{
 		test = extent.startTest("CreateGroup_admin");
 		
-		String administratorTab = administrationPage.administratorDropDown(driver).getText();
+		String administratorTab = administrationPage.administratorDropDown().getText();
 		
 		if(administratorTab.contains("Administrator"))
 		{
-			administrationPage.administratorDropDown(driver).click();
+			administrationPage.administratorDropDown().click();
 			test.log(LogStatus.PASS, "Successfully click on 'administrator");
-			administrationPage.administrationLink(driver).click();
+			
+			administrationPage.administrationLink().click();
 			test.log(LogStatus.PASS, "Successfully click on 'administration' link.");
 			
-			if(administrationPage.verifyAdministrationPagePrescence(driver)) {
+			if(administrationPage.verifyAdministrationPagePrescence()) {
 				test.log(LogStatus.PASS, "Successfully verify 'administration Page' Prescence.");
 			}else {
 				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
 			}
-			
+			test.addScreenCapture(captureScreenShot(driver, "AfterEnteringProperUsername"));
 		}else{
 			
 			test.log(LogStatus.FAIL, "Unable to find 'Groups' tab");
@@ -83,9 +77,9 @@ public class AdministratonPage_Test extends BaseClass {
 	{
 		//call Logout keyword
 		test = extent.startTest("logoutFunction");
-		logout.administratorDropDown(driver).click();
+		logout.logoutFunction();
 		test.log(LogStatus.PASS, "Clicked on Administrator dropdown after sucessfully login.");
-		logout.logoutLink(driver).click();
+		
 		test.log(LogStatus.PASS, "Clicked on logout link"+
 		test.addScreenCapture(captureScreenShot(driver, "clickonLogoutlink")));	
 		
@@ -96,7 +90,7 @@ public class AdministratonPage_Test extends BaseClass {
 			test.addScreenCapture(captureScreenShot(driver, "Logout Alert")));
 		};
 		
-		logout.logoutButton(driver).click();
+		logout.logoutFunction();
 		test.log(LogStatus.PASS, "Clicked on logout button"+
 		test.addScreenCapture(captureScreenShot(driver, "ClickOnLogoutButton")));
 		extent.endTest(test);
