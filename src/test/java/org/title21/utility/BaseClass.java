@@ -32,11 +32,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 import org.testng.asserts.SoftAssert;
-<<<<<<< HEAD
 import org.title21.POM.AdministrationPage_POM;
-=======
 import org.title21.POM.LoginPage_POM;
->>>>>>> branch 'master' of https://github.com/Title21user1/Title21Automation.git
+
 import org.title21.reporting.ExtentManager;
 
 //import com.framework.selenium.BaseClass;
@@ -209,19 +207,19 @@ public class BaseClass {
 	
 	public static void getAdministrationPage() {
 		
-		AdministrationPage_POM administrationPage = new AdministrationPage_POM();
+		AdministrationPage_POM administrationPage = new AdministrationPage_POM(driver);
 		test = extent.startTest("NavigateToAdministrationPage");
 		
-		String administratorTab = administrationPage.administratorDropDown(driver).getText();
+		String administratorTab = administrationPage.administratorDropDown().getText();
 		
 		if(administratorTab.contains("Administrator"))
 		{
-			administrationPage.administratorDropDown(driver).click();
+			administrationPage.administratorDropDown().click();
 			test.log(LogStatus.PASS, "Successfully click on 'administrator");
-			administrationPage.administrationLink(driver).click();
+			administrationPage.administrationLink().click();
 			test.log(LogStatus.PASS, "Successfully click on 'administration' link.");
 			
-			if(administrationPage.verifyAdministrationPagePrescence(driver)) {
+			if(administrationPage.verifyAdministrationPagePrescence()) {
 				test.log(LogStatus.PASS, "Successfully verify 'administration Page' Prescence.");
 			}else {
 				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");

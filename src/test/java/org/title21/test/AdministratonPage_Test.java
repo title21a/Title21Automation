@@ -21,9 +21,15 @@ public class AdministratonPage_Test extends BaseClass {
 	boolean group=false;
 	String className="";
 
+<<<<<<< HEAD
 	AdministrationPage_POM administrationPage; 
 	LoginPage_POM login; 
 	LogoutPage_POM logout;
+=======
+	AdministrationPage_POM administrationPage = new AdministrationPage_POM(driver);
+	LoginPage_POM login = new LoginPage_POM(driver);
+	public LogoutPage_POM logout = new LogoutPage_POM(driver);
+>>>>>>> branch 'master' of https://github.com/Title21user1/Title21Automation.git
 
 	
 	@BeforeClass
@@ -32,8 +38,18 @@ public class AdministratonPage_Test extends BaseClass {
 		getBrowser();
 		className = this.getClass().getName();
 		createDirectory(className);
+<<<<<<< HEAD
 		login=new LoginPage_POM(driver);
 		login.loginFunction();
+=======
+		//Call Login keyword
+		test = extent.startTest("LoginIntoAdministration");
+		login.loginFunction();
+		test.log(LogStatus.PASS, "Clicked on Login button."+
+		test.addScreenCapture(captureScreenShot(driver, "View after Loggedin.")));	
+		
+		extent.endTest(test);
+>>>>>>> branch 'master' of https://github.com/Title21user1/Title21Automation.git
 	}
 	
 	@Test(testName = "Administration_Page", groups = "AdministrationPage", priority = 0)
@@ -41,17 +57,17 @@ public class AdministratonPage_Test extends BaseClass {
 	{
 		test = extent.startTest("CreateGroup_admin");
 		
-		String administratorTab = administrationPage.administratorDropDown(driver).getText();
+		String administratorTab = administrationPage.administratorDropDown().getText();
 		
 		if(administratorTab.contains("Administrator"))
 		{
-			administrationPage.administratorDropDown(driver).click();
+			administrationPage.administratorDropDown().click();
 			test.log(LogStatus.PASS, "Successfully click on 'administrator");
 			
-			administrationPage.administrationLink(driver).click();
+			administrationPage.administrationLink().click();
 			test.log(LogStatus.PASS, "Successfully click on 'administration' link.");
 			
-			if(administrationPage.verifyAdministrationPagePrescence(driver)) {
+			if(administrationPage.verifyAdministrationPagePrescence()) {
 				test.log(LogStatus.PASS, "Successfully verify 'administration Page' Prescence.");
 			}else {
 				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
@@ -76,6 +92,30 @@ public class AdministratonPage_Test extends BaseClass {
 	@AfterClass
 	public void closeBrowserInstance() 
 	{
+<<<<<<< HEAD
+=======
+		//call Logout keyword
+		test = extent.startTest("logoutFunction");
+		logout.logoutFunction();
+		test.log(LogStatus.PASS, "Clicked on Administrator dropdown after sucessfully login.");
+		
+		test.log(LogStatus.PASS, "Clicked on logout link"+
+		test.addScreenCapture(captureScreenShot(driver, "clickonLogoutlink")));	
+		
+		sleep(2);
+		
+		if (logout.verifyMessageonModalDialog(driver)){
+			test.log(LogStatus.PASS, "Message on Logout alert verified."+
+			test.addScreenCapture(captureScreenShot(driver, "Logout Alert")));
+		};
+		
+		logout.logoutFunction();
+		test.log(LogStatus.PASS, "Clicked on logout button"+
+		test.addScreenCapture(captureScreenShot(driver, "ClickOnLogoutButton")));
+		extent.endTest(test);
+		
+		
+>>>>>>> branch 'master' of https://github.com/Title21user1/Title21Automation.git
 		driver.close();
 	}
 

@@ -3,11 +3,17 @@ package org.title21.POM;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+<<<<<<< HEAD
 import org.title21.utility.BaseClass;
+=======
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+>>>>>>> branch 'master' of https://github.com/Title21user1/Title21Automation.git
 
 public class AdministrationPage_POM
 {
 	
+<<<<<<< HEAD
 	public BaseClass baseClassObj=new BaseClass();
 	public WebDriver driver;
 	public WebElement element;
@@ -15,21 +21,40 @@ public class AdministrationPage_POM
  By administratordropdown=By.cssSelector(".dropdown-toggle.t21-nav-bar-dropdown");
  By administrationlink=By.xpath("//a[contains(@href, 'Administration')]");
  By administrationtext=By.cssSelector(".t21-grid-header-style");
+=======
+	
+public WebDriver driver;
+public WebElement element;
+
+@FindBy(css=".dropdown-toggle.t21-nav-bar-dropdown")
+ WebElement administratordropdown;
+
+@FindBy(xpath="//a[contains(@href, 'Administration')]")
+ WebElement administrationlink;
+
+@FindBy(css=".t21-grid-header-style")
+WebElement administrationtext;
+>>>>>>> branch 'master' of https://github.com/Title21user1/Title21Automation.git
  
- public WebElement administratorDropDown(WebDriver driver)
+public AdministrationPage_POM(WebDriver driver) {
+	this.driver = driver;
+	PageFactory.initElements(driver, this);
+}
+
+ public WebElement administratorDropDown()
  {
-	 element=driver.findElement(administratordropdown);
-	 return element;
+	 return administratordropdown;
+	// return element;
  }
- public WebElement administrationLink(WebDriver driver)
+ public WebElement administrationLink()
  {
-	 element=driver.findElement(administrationlink);
-	 return element;
+	 return administrationlink;
+	 //return element;
  }
- public WebElement administrationText(WebDriver driver)
+ public WebElement administrationText()
  {
-	 element=driver.findElement(administrationtext); 
-	 return element;
+	 return administrationtext; 
+	 //return element;
  }
  
  /*
@@ -38,9 +63,9 @@ public class AdministrationPage_POM
 	 * @param WebDriver obj
 	 */
 	
-	public boolean verifyAdministrationPagePrescence(WebDriver driver){
+	public boolean verifyAdministrationPagePrescence(){
 		
-		String administrationText = administrationText(driver).getText();
+		String administrationText = administrationText().getText();
 		
 		if(administrationText.equalsIgnoreCase("Administration"))
 		{
