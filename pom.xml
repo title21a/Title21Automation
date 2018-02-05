@@ -148,8 +148,7 @@
 
 					<testFailureIgnore>true</testFailureIgnore>
 					<suiteXmlFiles>
-						<suiteXmlFile>testng.xml</suiteXmlFile>
-						<suiteXmlFile>AdminSuite.xml</suiteXmlFile>
+						<suiteXmlFile>testng.xml</suiteXmlFile>						
 					</suiteXmlFiles>
 					<groupId>com.coravy.hudson.plugins.github</groupId>
 					<artifactId>github</artifactId>

@@ -11,9 +11,9 @@ import org.title21.utility.BaseClass;
 
 import com.relevantcodes.extentreports.LogStatus;
 public class CreateGroup_Test extends BaseClass {
-
 	LoginPage_POM login; 
 	LogoutPage_POM logout;
+
 	String className="";
 	AdministrationCreateNewGroup_POM adminCreateGroup;
 	
