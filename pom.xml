@@ -15,7 +15,7 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi</artifactId>
-			<version>3.17</version>
+			<version>3.16</version>
 		</dependency>
 
 		<dependency>
@@ -33,13 +33,13 @@
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml</artifactId>
-			<version>3.17</version>
+			<version>3.16</version>
 		</dependency>
 
 		<dependency>
 			<groupId>org.apache.poi</groupId>
 			<artifactId>poi-ooxml-schemas</artifactId>
-			<version>3.17</version>
+			<version>3.16</version>
 		</dependency>
 
 		<dependency>
@@ -147,8 +147,7 @@
 
 					<testFailureIgnore>true</testFailureIgnore>
 					<suiteXmlFiles>
-						<suiteXmlFile>testng.xml</suiteXmlFile>
-						<suiteXmlFile>AdminSuite.xml</suiteXmlFile>
+						<suiteXmlFile>testng.xml</suiteXmlFile>						
 					</suiteXmlFiles>
 					<groupId>com.coravy.hudson.plugins.github</groupId>
 					<artifactId>github</artifactId>

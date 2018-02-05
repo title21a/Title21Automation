@@ -1,4 +1,4 @@
-package org.title21.test;
+/*package org.title21.test;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import com.relevantcodes.extentreports.LogStatus;
 
 public class CreateGroup_Test extends BaseClass {
 
-	LoginPage_POM login = new LoginPage_POM();
+	LoginPage_POM login = new LoginPage_POM(driver);
 	public LogoutPage_POM logout = new LogoutPage_POM();
 	boolean group=false;
 	String className="";
@@ -158,3 +158,4 @@ public class CreateGroup_Test extends BaseClass {
 	
 	
 }
+*/
