@@ -135,7 +135,7 @@ public class CreateGroup_Test extends BaseClass {
 						System.out.println(i);
 						String groups = driver.findElement(By.xpath("//tbody[@class='t21-js-clickable-rows']/tr["+i+"]/td[1]")).getText();
 						
-						if(groups.equalsIgnoreCase("test")) {
+						if(groups.equalsIgnoreCase("test123")) {
 							GroupPresenceAfterSearch = true;
 							break;
 						}
