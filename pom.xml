@@ -150,6 +150,7 @@
 					<suiteXmlFiles>
 						<suiteXmlFile>testng.xml</suiteXmlFile>
 						<!-- <suiteXmlFile>AdminSuite.xml</suiteXmlFile> -->
+
 					</suiteXmlFiles>
 					<groupId>com.coravy.hudson.plugins.github</groupId>
 					<artifactId>github</artifactId>
