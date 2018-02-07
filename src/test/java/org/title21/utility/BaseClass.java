@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Formatter;
+import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
 import org.apache.commons.io.FileUtils;
@@ -31,6 +32,9 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.Parameters;
 import org.testng.asserts.SoftAssert;
+import org.title21.POM.AdministrationPage_POM;
+import org.title21.POM.LoginPage_POM;
+
 import org.title21.reporting.ExtentManager;
 
 //import com.framework.selenium.BaseClass;
@@ -38,17 +42,28 @@ import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
 
+import org.title21.POM.LogoutPage_POM;
+
 public class BaseClass {
 
-	protected WebDriver driver;
-	protected ExtentReports extent;
-	protected ExtentTest test;
+	protected static WebDriver driver;
+	protected static ExtentReports extent;
+	protected static ExtentTest test;
 	protected String filePath;
+	protected String loginData[][];
+	protected String groupData[][];
 	protected String data[][];
 	protected WebDriverWait waitDriver = null;
+	LoginPage_POM login;
+	LogoutPage_POM logout;
 	
-	String excelFile;
-	String sheetName;
+	public String excelFile="";
+	public String loginSheet="";
+	public String groupSheet="";
+	public static String browser="";
+	public static String baseUrl="";
+	public static String adminUsername="";
+	public static String adminPassword="";
 	static String imagesDirectory = "";
 
 	@BeforeMethod
@@ -73,16 +88,31 @@ public class BaseClass {
 	}
 
 	@BeforeSuite
-	@Parameters({ "excelFilePath", "sheetName" })
-	public void beforeSuite(String excelFilePath, String sheetName) throws Exception {
+	@Parameters({"configFile"})
+	public void beforeSuite(String configFile) throws Exception {
+		
+		Properties p=new Properties();
+		FileInputStream readconfig=new FileInputStream(configFile);
+		p.load(readconfig);		
+		
+		browser=p.getProperty("browser");
+		baseUrl=p.getProperty("baseUrl");
+		excelFile=p.getProperty("excelFilePath");
+		loginSheet=p.getProperty("Loginsheet");
+		groupSheet=p.getProperty("Groupsheet");
+		adminUsername=p.getProperty("adminUsername");
+		adminPassword=p.getProperty("adminPassword");
+		
 		String workingDir = System.getProperty("user.dir") + "\\extentReports";
 		Calendar calander = Calendar.getInstance();
 		SimpleDateFormat formater = new SimpleDateFormat("dd_MM_yy_hh_mm_ss");
 		
-		filePath = workingDir + "\\index.html";
-		excelFile = excelFilePath;
-		sheetName = sheetName;
-		data = ExcelData(excelFile, sheetName);
+		filePath = workingDir + "\\index.html";		
+		
+		
+		loginData=ExcelData(excelFile, loginSheet);
+		groupData=ExcelData(excelFile, groupSheet);
+		
 		extent = ExtentManager.getReporter(filePath);	
 		
 	}
@@ -110,6 +140,7 @@ public class BaseClass {
 			System.out.println("Failed to create directory.");
 		}
 	}
+	
 
 	public static String captureScreenShot(WebDriver driver, String screenshotName) {
 		try {
@@ -136,7 +167,6 @@ public class BaseClass {
 		// sleep(2);
 		waitDriver = new WebDriverWait(driver, seconds);
 		waitDriver.until(new ExpectedCondition<Boolean>() {
-			@Override
 			public Boolean apply(WebDriver webDriver) {
 				try {
 					return ((String) ((JavascriptExecutor) webDriver).executeScript("return document.readyState"))
@@ -153,15 +183,15 @@ public class BaseClass {
 
 		});
 	}
-
-	public void browser(String browser, String url) {
-
+		
+	public void getBrowser() {				
+		     
 		if (browser.equalsIgnoreCase("chrome")) {
 			extent = ExtentManager.getReporter(filePath);
 			System.setProperty("webdriver.chrome.driver", ".\\drivers\\chromedriver.exe");
 			driver = new ChromeDriver();
 			implicitwait(driver);
-			driver.get(url);
+			driver.get(baseUrl);
 			driver.manage().window().maximize();
 		}
 
@@ -170,16 +200,50 @@ public class BaseClass {
 			System.setProperty("webdriver.ie.driver", ".\\drivers\\IEDriverServer.exe");
 			driver = new InternetExplorerDriver();
 			implicitwait(driver);
-			driver.get(url);
+			driver.get(baseUrl);
 		}
 
 		else if (browser.equalsIgnoreCase("firefox")) {
 			System.setProperty("webdriver.gecko.driver", ".\\drivers\\geckodriver.exe");
 			driver = new FirefoxDriver();
 			implicitwait(driver);
-			driver.get(url);
+			driver.get(baseUrl);
 		}
 	}
+	
+	
+	public static void getAdministrationPage() {
+		
+		AdministrationPage_POM administrationPage = new AdministrationPage_POM(driver);
+		test = extent.startTest("NavigateToAdministrationPage");
+		
+		String administratorTab = administrationPage.administratorDropDown().getText();
+		
+		if(administratorTab.contains("Administrator"))
+		{
+			administrationPage.administratorDropDown().click();
+			test.log(LogStatus.PASS, "Successfully click on 'administrator"+
+					test.addScreenCapture(captureScreenShot(driver, "administrator")));
+			
+			administrationPage.administrationLink().click();
+			test.log(LogStatus.PASS, "Successfully click on 'administration' link."+
+					test.addScreenCapture(captureScreenShot(driver, "'administration' link.")));
+			
+			if(administrationPage.verifyAdministrationPagePrescence()) {
+				test.log(LogStatus.PASS, "Successfully verify 'administration Page' Prescence."+
+						test.addScreenCapture(captureScreenShot(driver, "'administration Page")));
+			}else {
+				test.log(LogStatus.FAIL, "Unable to verify 'administration Page' Prescence.");
+			}
+			
+		}else{
+			
+			test.log(LogStatus.FAIL, "Unable to find 'Groups' tab");
+			
+		}
+		extent.endTest(test);
+	}
+	
 
 	public WebDriver SwitchToFrame() {
 		driver.switchTo().frame(0);
@@ -195,7 +259,7 @@ public class BaseClass {
 		int rowNum = ws.getLastRowNum() + 1;
 		int colNum = ws.getRow(0).getLastCellNum();
 
-		String[][] data = new String[rowNum][colNum];
+		data = new String[rowNum][colNum];
 
 		for (int i = 0; i < rowNum; i++) {
 			XSSFRow row = ws.getRow(i);
@@ -247,4 +311,21 @@ public class BaseClass {
 			e.printStackTrace();
 		}
 	}
+	
+	public void loginFunction(WebDriver driver){		
+		login=new LoginPage_POM(driver);
+		login.getUsername().sendKeys(adminUsername);
+		login.getLogin_button().click();
+		login.getpassword().sendKeys(adminPassword);
+		login.getLogin_button().click();
+		sleep(2);
+	}
+	
+	/*public void logoutFunction(WebDriver driver){			
+		logout.administratorDropDown(driver).click();
+		test.log(LogStatus.PASS, "Clicked on Administrator dropdown after sucessfully login.");
+		logout.logoutLink(driver).click();
+		test.log(LogStatus.PASS, "Clicked on logout link");
+	}*/
+	
 }

@@ -1,86 +1,152 @@
 package org.title21.POM;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
+import org.title21.utility.BaseClass;
+import org.title21.validation.entities.ErrorMessages;
 
 public class AdministrationCreateNewGroup_POM
 {
 public WebDriver driver;
 public WebElement element;
- By groupslink=By.xpath("//a[contains(@href,'GetGroupList')]");
- By addnewlink=By.xpath("//a[contains(@href,'AddUserGroup')]");
- By addgroupheaderlable=By.xpath("//*[text()='Add Group']");
- By grouplocationdropdownclick=By.xpath("//select[@class='form-control']");
- By grouplocationdropdownvalue=By.xpath("//select[@class='form-control valid']/option");
- By addgrouptextbox=By.cssSelector("#Group_Groups");
- By addgroupaddbutton=By.cssSelector(".btn.t21-btn-primary.t21-ajax-submit-button");
- By addgroupcancelbutton=By.cssSelector(".btn.t21-btn-default.pull-left");
- By groupfilterresult=By.cssSelector(".form-control.t21-placeholder");
- By groupfilterresutgobutton=By.xpath("//button[@type='submit'][@tabindex='1']");
- By nogroupfoundresulttext=By.xpath("//*[text()='No group found']");
+BaseClass baseClassObj = new BaseClass();
+
+
+public AdministrationCreateNewGroup_POM(WebDriver driver) {
+	this.driver = driver;
+	PageFactory.initElements(driver, this);
+}
+@FindBy(xpath="//a[contains(@href,'GetGroupList')]")
+WebElement groupslink;
+
+@FindBy(xpath="//a[contains(@href,'AddUserGroup')]")
+WebElement addnewlink;
+
+@FindBy(xpath="//*[text()='Add Group']")
+WebElement addgroupheaderlable;
+
+@FindBy(xpath="//select[@class='form-control']")
+WebElement grouplocationdropdownclick;
+
+@FindBy(xpath="//select[@class='form-control valid']/option")
+WebElement grouplocationdropdownvalue;
+
+@FindBy(css="#Group_Groups")
+WebElement addgrouptextbox;
+
+@FindBy(css=".btn.t21-btn-primary.t21-ajax-submit-button")
+WebElement addgroupaddbutton;
+
+@FindBy(css=".btn.t21-btn-default.pull-left")
+WebElement addgroupcancelbutton;
+
+@FindBy(css=".form-control.t21-placeholder")
+WebElement groupfilterresult;
+
+@FindBy(xpath="//button[@type='submit'][@tabindex='1']")
+WebElement groupfilterresutgobutton;
+
+@FindBy(xpath="//*[text()='No group found']")
+WebElement nogroupfoundresulttext;
+
+@FindBy(xpath="//tbody[@class='t21-js-clickable-rows']/tr/td[1]")
+WebElement listOfGroups;
+
+@FindBy(xpath="//button[text()='Close']")
+WebElement alertCloseButton;
+
+@FindBy(xpath="//h4[text()='Message']")
+WebElement alertMsgPopUp;
+
+@FindBy(css="#Group_Groups-error")
+WebElement alreadyGroupCreatedErrorMsg;
+
  
- public WebElement groupsTab(WebDriver driver)
+ public WebElement groupsTab()
  {
-	 element=driver.findElement(groupslink);
-	 return element;
+	 //element=driver.findElement(groupslink);
+	 return groupslink;
  }
- public WebElement groupAddNewLink(WebDriver driver)
+ public WebElement groupAddNewLink()
  {
-	 element=driver.findElement(addnewlink);
-	 return element;
+	 //element=driver.findElement(addnewlink);
+	 return addnewlink;
  }
- public WebElement addGroupHeaderlable(WebDriver driver)
+ public WebElement addGroupHeaderlable()
  {
-	 element=driver.findElement(addgroupheaderlable); 
-	 return element;
- }
- 
- public WebElement groupLocationDropDownClick(WebDriver driver)
- {
-	 element=driver.findElement(grouplocationdropdownclick); 
-	 return element;
+	 //element=driver.findElement(addgroupheaderlable); 
+	 return addgroupheaderlable;
  }
  
- public WebElement groupLocationDropDownValue(WebDriver driver)
+ public WebElement groupLocationDropDownClick()
  {
-	 element=driver.findElement(grouplocationdropdownvalue); 
-	 return element;
+	// element=driver.findElement(grouplocationdropdownclick); 
+	 return grouplocationdropdownclick;
  }
  
- public WebElement addGroupTextBox(WebDriver driver)
+ public WebElement groupLocationDropDownValue()
  {
-	 element=driver.findElement(addgrouptextbox); 
-	 return element;
+	 //element=driver.findElement(grouplocationdropdownvalue); 
+	 return grouplocationdropdownvalue;
  }
  
- public WebElement addGroupAddButton(WebDriver driver)
+ public WebElement addGroupTextBox()
  {
-	 element=driver.findElement(addgroupaddbutton); 
-	 return element;
+	 //element=driver.findElement(addgrouptextbox); 
+	 return addgrouptextbox;
  }
  
- public WebElement addGroupCancelButton(WebDriver driver)
+ public WebElement addGroupAddButton()
  {
-	 element=driver.findElement(addgroupcancelbutton); 
-	 return element;
+	 //element=driver.findElement(addgroupaddbutton); 
+	 return addgroupaddbutton;
  }
  
- public WebElement groupFilterResult(WebDriver driver)
+ public WebElement addGroupCancelButton()
  {
-	 element=driver.findElement(groupfilterresult); 
-	 return element;
+	 //element=driver.findElement(addgroupcancelbutton); 
+	 return addgroupcancelbutton;
  }
  
- public WebElement groupFilterResutGoButton(WebDriver driver)
+ public WebElement groupFilterResult()
  {
-	 element=driver.findElement(groupfilterresutgobutton); 
-	 return element;
+	 //element=driver.findElement(groupfilterresult); 
+	 return groupfilterresult;
  }
  
- public WebElement noGroupFoundResultText(WebDriver driver){
-	 element=driver.findElement(nogroupfoundresulttext);
-	 return element;
+ public WebElement groupFilterResutGoButton()
+ {
+	 //element=driver.findElement(groupfilterresutgobutton); 
+	 return groupfilterresutgobutton;
+ }
+ 
+ public WebElement noGroupFoundResultText(){
+	 //element=driver.findElement(nogroupfoundresulttext);
+	 return nogroupfoundresulttext;
+ }
+ 
+ public WebElement listOfGroups(){
+	 //element=driver.findElement(listOfGroups);
+	 return listOfGroups;
+ }
+ 
+ public WebElement alertCloseButton() {
+	 
+	 return alertCloseButton;
+ }
+ 
+ public WebElement alertMsgPopUp() {
+	 
+	 return alertMsgPopUp;
+ }
+ 
+ public WebElement alreadyGroupCreatedErrorMsg() {
+	 
+	 return alreadyGroupCreatedErrorMsg;
  }
  
  /*
@@ -91,7 +157,7 @@ public WebElement element;
 	
 	public boolean verifyAddGroupPopUp(WebDriver driver){
 		
-		String AddGroupPopUpHeaderText = addGroupHeaderlable(driver).getText();
+		String AddGroupPopUpHeaderText = addGroupHeaderlable().getText();
 		
 		if(AddGroupPopUpHeaderText.equalsIgnoreCase("Add Group"))
 		{
@@ -106,7 +172,7 @@ public WebElement element;
 	
 	public boolean verifyNoGroupFoundText(WebDriver driver){
 		
-		String NoGroupFoundResultText = noGroupFoundResultText(driver).getText();
+		String NoGroupFoundResultText = noGroupFoundResultText().getText();
 		
 		if(NoGroupFoundResultText.equalsIgnoreCase("No group found"))
 		{
@@ -118,11 +184,79 @@ public WebElement element;
 		}
 		
 	}
-	
 
+	public boolean verifyAlerPopUp(WebDriver driver){
+		
+		String alertHeaderText = alertMsgPopUp().getText();
+		
+		if(alertHeaderText.equalsIgnoreCase("Message"))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+		
+	}
+	
+	public boolean verifyalreadyGroupCreatedErrorMsg(WebDriver driver){
+		
+		baseClassObj.waitForPageToLoad(driver, 10);
+		String errorMessage = alreadyGroupCreatedErrorMsg().getText();		
+		if(errorMessage.contains(ErrorMessages.groupnamealreadyexist))
+		{
+			return true;
+		}
+		else
+		{	
+			return false;
+		}		
+		
+	}
+	
+	public boolean verifyalreadyGroupCreatedErrorMsg1(WebDriver driver){
+		
+		try {
+			
+			driver.findElement(By.cssSelector("#Group_Groups-error")); 
+			
+		}catch(NoSuchElementException e) {
+			
+			
+			
+		}
+		
+		
+		baseClassObj.waitForPageToLoad(driver, 10);
+		String errorMessage = alreadyGroupCreatedErrorMsg().getText();		
+		if(errorMessage.contains(ErrorMessages.groupnamealreadyexist))
+		{
+			return true;
+		}
+		else
+		{	
+			return false;
+		}		
+		
+	}
+	
+	
+	
+	
 	public void switchToModalDialog(WebDriver driver){
 		 
 		 driver.switchTo().alert();
+	 }
+	
+	public void acceptToAddGroup(WebDriver driver){
+		 
+		 driver.switchTo().alert().accept();
+	 }
+	
+	public void cancelToAddGroup(WebDriver driver){
+		 
+		 driver.switchTo().alert().dismiss();
 	 }
 	
 }

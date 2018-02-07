@@ -15,15 +15,15 @@ import com.relevantcodes.extentreports.LogStatus;
 
 public class LogoutPage_Test extends BaseClass {
 	
-	public LoginPage_POM login = new LoginPage_POM();
-	public LogoutPage_POM logout = new LogoutPage_POM();
+	LoginPage_POM login; 
+	LogoutPage_POM logout;
 	SoftAssert softAssertion=new SoftAssert();
 	String className="";
 	
 	@BeforeClass
 	public void openURL() {
 		
-		browser("Chrome", "https://quantumdev.title21.com");
+		getBrowser();
 		className = this.getClass().getName();
 		createDirectory(className);
 	}
@@ -33,16 +33,19 @@ public class LogoutPage_Test extends BaseClass {
 		
 		test = extent.startTest("logoutFunction");
 		test.log(LogStatus.PASS, "Opened URL");
-		login.login_username(driver).sendKeys("admin");
+		login= new LoginPage_POM(driver);
+		login.getUsername().sendKeys("admin");
 		test.log(LogStatus.PASS, "Username Entered");
-		login.login_BTN(driver).click();
+		login.getLogin_button().click();
 		test.log(LogStatus.PASS, "Clicked on Login button after entering Username.");
-		login.login_password(driver).sendKeys("administrator");
+		login.getpassword().sendKeys("administrator");
 		test.log(LogStatus.PASS, "Password Entered");
-		login.login_BTN(driver).click();
-		logout.administratorDropDown(driver).click();
+		login.getLogin_button().click();
+		logout=new LogoutPage_POM(driver);
+		logout.getAdmindropdown().click();	
 		test.log(LogStatus.PASS, "Clicked on Administrator dropdown after sucessfully login.");
-		logout.logoutLink(driver).click();
+		logout.getlogoutLink().click();
+		
 		test.log(LogStatus.PASS, "Clicked on logout link"+
 		test.addScreenCapture(captureScreenShot(driver, "clickonLogoutlink")));	
 		
@@ -53,7 +56,7 @@ public class LogoutPage_Test extends BaseClass {
 			test.addScreenCapture(captureScreenShot(driver, "Logout Alert")));
 		};
 		
-		logout.logoutButton(driver).click();
+		logout.getLogoutButton().click();
 		test.log(LogStatus.PASS, "Clicked on logout button"+
 		test.addScreenCapture(captureScreenShot(driver, "ClickOnLogoutButton")));
 		extent.endTest(test);
@@ -63,7 +66,7 @@ public class LogoutPage_Test extends BaseClass {
 		
 		test = extent.startTest("Verifying Logout");
 		waitForPageToLoad(driver,3);
-		login.login_username(driver).sendKeys("admin");
+		login.getUsername().sendKeys("admin");
 		test.log(LogStatus.PASS, "User logout from the application successfully"+
 		test.addScreenCapture(captureScreenShot(driver, "ClickOnLogoutButton")));		
 	}

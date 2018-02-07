@@ -3,51 +3,70 @@ package org.title21.POM;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 
 public class AdministrationDeleteGroup_POM
 {
 public WebDriver driver;
 public WebElement element;
- By groupslink=By.xpath("//a[contains(@href,'GetGroupList')]");
- By groupfilterresult=By.cssSelector(".form-control.t21-placeholder");
- By groupfilterresutgobutton=By.xpath("//button[@type='submit'][@tabindex='1']");
- By nogroupfoundresulttext=By.xpath("//*[text()='No group found']");
- By deleteGroupPopUpHeaderText=By.cssSelector(".modal-title>span");
- By deleteGroupConfirmPopUpHeaderText=By.xpath("//*[text()='Message']");
+
+public AdministrationDeleteGroup_POM(WebDriver driver) {
+	this.driver = driver;
+	PageFactory.initElements(driver, this);
+}
+
+@FindBy(xpath="//a[contains(@href,'GetGroupList')]")
+WebElement groupslink;
+
+@FindBy(css=".form-control.t21-placeholder")
+WebElement groupfilterresult;
+
+@FindBy(xpath="//button[@type='submit'][@tabindex='1']")
+WebElement groupfilterresutgobutton;
+
+@FindBy(xpath="//*[text()='No group found']")
+WebElement nogroupfoundresulttext;
+
+@FindBy(css=".modal-title>span")
+WebElement deleteGroupPopUpHeaderText;
+
+@FindBy(xpath="//*[text()='Message']")
+WebElement deleteGroupConfirmPopUpHeaderText;
  
- public WebElement groupsTab(WebDriver driver)
+ public WebElement groupsTab()
  {
-	 element=driver.findElement(groupslink);
-	 return element;
+	 //element=driver.findElement(groupslink);
+	 return groupslink;
  }
- public WebElement groupFilterResult(WebDriver driver)
+ public WebElement groupFilterResult()
  {
-	 element=driver.findElement(groupfilterresult); 
-	 return element;
- }
- 
- public WebElement groupFilterResutGoButton(WebDriver driver)
- {
-	 element=driver.findElement(groupfilterresutgobutton); 
-	 return element;
+	// element=driver.findElement(groupfilterresult); 
+	 return groupfilterresult;
  }
  
- public WebElement noGroupFoundResultText(WebDriver driver)
+ public WebElement groupFilterResutGoButton()
  {
-	 element=driver.findElement(nogroupfoundresulttext);
-	 return element;
+	// element=driver.findElement(groupfilterresutgobutton); 
+	 return groupfilterresutgobutton;
  }
  
- public WebElement deleteGroupPopUpHeaderText(WebDriver driver)
+ public WebElement noGroupFoundResultText()
  {
-	 element=driver.findElement(deleteGroupPopUpHeaderText);
-	 return element;
+	 //element=driver.findElement(nogroupfoundresulttext);
+	 return nogroupfoundresulttext;
  }
  
- public WebElement deleteGroupConfirmPopUpHeaderText(WebDriver driver)
+ public WebElement deleteGroupPopUpHeaderText()
  {
-	 element=driver.findElement(deleteGroupConfirmPopUpHeaderText);
-	 return element;
+	// element=driver.findElement(deleteGroupPopUpHeaderText);
+	 return deleteGroupPopUpHeaderText;
+ }
+ 
+ public WebElement deleteGroupConfirmPopUpHeaderText()
+ {
+	// element=driver.findElement(deleteGroupConfirmPopUpHeaderText);
+	 return deleteGroupConfirmPopUpHeaderText;
  }
  
  /*
@@ -56,9 +75,9 @@ public WebElement element;
 	 * @param WebDriver obj
 	 */
 	
-	public boolean verifyNoGroupFoundText(WebDriver driver){
+	public boolean verifyNoGroupFoundText(){
 		
-		String NoGroupFoundResultText = noGroupFoundResultText(driver).getText();
+		String NoGroupFoundResultText = noGroupFoundResultText().getText();
 		
 		if(NoGroupFoundResultText.equalsIgnoreCase("No group found"))
 		{
@@ -71,9 +90,9 @@ public WebElement element;
 		
 	}
 	
-	public boolean verifyDeleteGroupPopUp(WebDriver driver){
+	public boolean verifyDeleteGroupPopUp(){
 		
-		String DeleteGroupHeaderText = deleteGroupPopUpHeaderText(driver).getText();
+		String DeleteGroupHeaderText = deleteGroupPopUpHeaderText().getText();
 		
 		if(DeleteGroupHeaderText.equalsIgnoreCase("Delete Group"))
 		{
@@ -86,12 +105,12 @@ public WebElement element;
 		
 	}
 
-	public void switchToModalDialog(WebDriver driver){
+	public void switchToModalDialog(){
 		 
 		 driver.switchTo().alert();
 	 }
 	
-	public boolean verifyDeleteGroupPopUpTextMsg(WebDriver driver){
+	public boolean verifyDeleteGroupPopUpTextMsg(){
 		
 		driver.switchTo().alert();
 		String DeleteGroupTextMsg= driver.switchTo().alert().getText();
@@ -107,9 +126,9 @@ public WebElement element;
 		
 	}
 	
-	public boolean verifyDeleteGroupcConfirmPopUpText(WebDriver driver){
+	public boolean verifyDeleteGroupcConfirmPopUpText(){
 		
-		String DeleteGroupHeaderText = deleteGroupConfirmPopUpHeaderText(driver).getText();
+		String DeleteGroupHeaderText = deleteGroupConfirmPopUpHeaderText.getText();
 		
 		if(DeleteGroupHeaderText.equalsIgnoreCase("Message"))
 		{
