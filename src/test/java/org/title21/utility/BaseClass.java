@@ -126,7 +126,7 @@ public class BaseClass {
 	}
 
 	public void implicitwait(WebDriver driver) {
-		driver.manage().timeouts().implicitlyWait(180, TimeUnit.SECONDS);
+		driver.manage().timeouts().implicitlyWait(120, TimeUnit.SECONDS);
 	}
 
 	public static void createDirectory(String classname) {
@@ -184,6 +184,9 @@ public class BaseClass {
 		});
 	}
 		
+	
+	
+	
 	public void getBrowser() {				
 		     
 		if (browser.equalsIgnoreCase("chrome")) {
@@ -310,22 +313,8 @@ public class BaseClass {
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
+
 	}
 	
-	public void loginFunction(WebDriver driver){		
-		login=new LoginPage_POM(driver);
-		login.getUsername().sendKeys(adminUsername);
-		login.getLogin_button().click();
-		login.getpassword().sendKeys(adminPassword);
-		login.getLogin_button().click();
-		sleep(2);
-	}
-	
-	/*public void logoutFunction(WebDriver driver){			
-		logout.administratorDropDown(driver).click();
-		test.log(LogStatus.PASS, "Clicked on Administrator dropdown after sucessfully login.");
-		logout.logoutLink(driver).click();
-		test.log(LogStatus.PASS, "Clicked on logout link");
-	}*/
 	
 }
