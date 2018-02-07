@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 import org.title21.POM.AdministrationCreateNewGroup_POM;
 import org.title21.POM.LoginPage_POM;
 import org.title21.POM.LogoutPage_POM;
-import org.title21.POM.Table;
+//import org.title21.POM.Table;
 import org.title21.utility.BaseClass;
 
 import com.relevantcodes.extentreports.LogStatus;
@@ -21,7 +21,7 @@ public class CreateGroup_Test extends BaseClass {
 	LogoutPage_POM logout;
 	String className="";
 	AdministrationCreateNewGroup_POM adminCreateGroup;
-	Table tableObj = new Table(driver);
+	//Table tableObj = new Table(driver);
 	boolean GroupPresence = false;
 	boolean GroupPresenceAfterSearch = false;
 	
